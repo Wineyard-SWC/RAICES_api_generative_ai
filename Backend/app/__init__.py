@@ -8,7 +8,6 @@ from starlette.middleware.cors import CORSMiddleware
 
 from routes import ia_req_router, ia_epic_router #Rutas IA
 from routes import app_router #Rutas default
-from routes import epic_router, user_router, project_router, project_user_router  #Rutas Firebase
 
 
 
@@ -21,7 +20,7 @@ def create_app() -> FastAPI:
     """
     print("Creando la aplicación FastAPI...")
 
-    app = FastAPI(title="RAICES API", version="1.0.0")
+    app = FastAPI(,title="RAICES API", version="1.0.0")
     
     # Configuración del middleware CORS
     app.add_middleware(
@@ -34,10 +33,6 @@ def create_app() -> FastAPI:
     
     app.include_router(app_router)
     # app.include_router(epic_router) 
-
-    app.include_router(user_router)
-    app.include_router(project_router) 
-    app.include_router(project_user_router) 
     
     app.include_router(ia_req_router) 
     app.include_router(ia_epic_router)

@@ -1,7 +1,7 @@
 """
 Archivo: main.py
 Descripción: Este módulo inicia la aplicación FastAPI, incluyendo la configuración del servidor.
-Autores: Abdiel Fritsche Barajas, Oscar Zhao Xu
+Autores: Abdiel Fritsche Barajas
 Fecha de Creación: 05-03-2025
 """
 # Standard library imports
@@ -17,4 +17,4 @@ app = create_app()
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
+    uvicorn.run(app, host="0.0.0.0", port=8001, reload=True)

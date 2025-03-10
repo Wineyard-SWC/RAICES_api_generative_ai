@@ -11,8 +11,7 @@ from typing import Optional, List, Dict
 
 # Local application imports
 from ia import ProjectAssistantAI as Assistant
-from models.ai_conversation_models import RequestBody, ChatMessage, ChatResponse, AddContentRequest
-
+from models import RequestBody, ChatResponse, AddContentRequest, ChatMessage
 router = APIRouter()
 
 # Instancia de la IA con los documentos de requerimientos
@@ -69,7 +68,7 @@ async def chat(message: ChatMessage):
         new_conversation = True
     else:
         session_id = message.session_id
-        new_conversation = False  # O, podrías decidirlo a partir de otro flag en el modelo
+        new_conversation = False  
 
     try:
         # Llamamos a cada función de requerimientos pasando el flag newchat según corresponda.
