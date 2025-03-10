@@ -6,8 +6,7 @@ from starlette.middleware.cors import CORSMiddleware
 
 # Local application imports
 
-from routes import ia_req_router, ia_epic_router #Rutas IA
-from routes import app_router #Rutas default
+from routes import epic_ai_router, req_ai_router, app_router   #<-- Futuras rutas de la API
 
 
 
@@ -20,7 +19,7 @@ def create_app() -> FastAPI:
     """
     print("Creando la aplicación FastAPI...")
 
-    app = FastAPI(,title="RAICES API", version="1.0.0")
+    app = FastAPI(title="RAICES API", version="1.0.0")
     
     # Configuración del middleware CORS
     app.add_middleware(
@@ -33,9 +32,7 @@ def create_app() -> FastAPI:
     
     app.include_router(app_router)
     # app.include_router(epic_router) 
-    
-    app.include_router(ia_req_router) 
-    app.include_router(ia_epic_router)
+
     #app.include_router(name.router)<-- Cambiar name por el nombre de la ruta.py
 
     return app
