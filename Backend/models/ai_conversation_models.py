@@ -1,6 +1,8 @@
 from pydantic import BaseModel
 from typing import Optional, List, Dict
 
+from datetime import datetime
+
 class RequestBody(BaseModel):
     message: str
     session_id: Optional[str] = None
@@ -19,3 +21,4 @@ class AddContentRequest(BaseModel):
     content: str
     source_name: Optional[str] = None
     metadata: Optional[Dict[str, str]] = None
+

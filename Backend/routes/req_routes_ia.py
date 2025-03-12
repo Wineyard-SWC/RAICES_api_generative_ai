@@ -12,6 +12,7 @@ from typing import Optional, List, Dict
 # Local application imports
 from ia import ProjectAssistantAI as Assistant
 from models import RequestBody, ChatResponse, AddContentRequest, ChatMessage
+
 router = APIRouter()
 
 # Instancia de la IA con los documentos de requerimientos

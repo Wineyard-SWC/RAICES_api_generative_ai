@@ -31,6 +31,8 @@ def create_app() -> FastAPI:
     )
     
     app.include_router(app_router)
+    app.include_router(req_ai_router)
+    app.include_router(epic_ai_router)
     # app.include_router(epic_router) 
 
     #app.include_router(name.router)<-- Cambiar name por el nombre de la ruta.py
