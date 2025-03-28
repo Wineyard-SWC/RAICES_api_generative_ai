@@ -1,8 +1,9 @@
+import json
+import re
 from langchain_core.output_parsers import JsonOutputParser
-from typing import Literal, Optional, Dict, List
+from typing import Literal, Optional, Dict, List,Union
 from datetime import datetime
 from pydantic import BaseModel, Field
-
 
 class RequirementResponse(BaseModel):
     """Modelo para respuestas estructuradas del asistente de proyectos."""
@@ -10,11 +11,12 @@ class RequirementResponse(BaseModel):
     status: Literal["REQUERIMIENTOS_GENERADOS", "INFORMACION_INSUFICIENTE", "ERROR_PROCESAMIENTO", "RESPUESTA_GENERAL"] = Field(
         description="Estado de la respuesta generada"
     )
+    query: str = Field(default="", description="Consulta original del usuario")
     timestamp: str = Field(
         default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         description="Momento en que se generó la respuesta"
     )
-    content: str = Field(
+    content: Union[List[Dict], str] = Field(
         description="Contenido principal de la respuesta (requerimientos, explicación o mensaje de error)"
     )
     missing_info: Optional[List[str]] = Field(
@@ -26,60 +28,38 @@ class RequirementResponse(BaseModel):
         description="Metadatos adicionales sobre la respuesta"
     )
 
-    def format_response(self) -> str:
-        """Formatea la respuesta para presentación al usuario."""
-        timestamp_str = f"TIMESTAMP: {self.timestamp}"
-        status_str = f"STATUS: {self.status.replace('_', ' ')}"
-        
-        if self.status == "REQUERIMIENTOS_GENERADOS":
-            formatted_output = f"""
-{status_str}
-{timestamp_str}
+    def _format_requirements(self, requirements: List[Dict]) -> List[Dict]:
+        """
+        Reformatea el id de cada requerimiento.
+        Se espera que cada diccionario tenga al menos una clave "id". Además, si el requerimiento
+        es no funcional se asume que el diccionario posee una clave "category" que contenga la palabra "no funcional" (o similar).
+        """
+        formatted = []
+        for req in requirements:
+            new_req = req.copy()
+            # Intentar extraer un número del id original
+            raw_id = new_req.get("id", None)
+            try:
+                # Si raw_id es numérico, se formatea directamente
+                num = int(raw_id)
+            except (ValueError, TypeError):
+                # Si no es numérico, buscar dígitos en el string
+                import re
+                num_match = re.search(r'\d+', str(raw_id))
+                num = int(num_match.group()) if num_match else 0
 
-{self.content}
-
----
-Nota: Los requerimientos anteriores fueron generados automáticamente 
-basados en la descripción del proyecto proporcionada.
-"""
-        elif self.status == "INFORMACION_INSUFICIENTE":
-            missing_details = ""
-            if self.missing_info:
-                for i, item in enumerate(self.missing_info, 1):
-                    missing_details += f"  {i}. {item}\n"
+            # Determinar si es no funcional basándonos en la clave "category"
+            category = new_req.get("category", "").lower()
+            if "no funcional" in category or "nf" in category:
+                new_req["id"] = f"REQ-NF-{num:03d}"
             else:
-                missing_details = self.content
-                
-            formatted_output = f"""
-{status_str}
-{timestamp_str}
+                new_req["id"] = f"REQ-{num:03d}"
+            formatted.append(new_req)
+        return formatted
 
-Se requiere más información para generar requerimientos adecuados.
-Por favor, proporcione detalles adicionales sobre:
-
-{missing_details}
-
----
-Nota: Una vez proporcionada esta información, se podrán 
-generar requerimientos más precisos y útiles.
-"""
-        elif self.status == "ERROR_PROCESAMIENTO":
-            formatted_output = f"""
-{status_str}
-{timestamp_str}
-
-No fue posible procesar su solicitud debido a:
-{self.content}
-
----
-Nota: Por favor, reformule su solicitud o contacte con soporte
-si el problema persiste.
-"""
-        else:  # RESPUESTA_GENERAL
-            formatted_output = f"""
-{status_str}
-{timestamp_str}
-
-{self.content}
-"""
-        return formatted_output
+    def format_response(self) -> str:
+        # Si content es una lista, aplicar el formateo a cada requerimiento
+        if isinstance(self.content, list):
+            self.content = self._format_requirements(self.content)
+        # Luego, devuelve el JSON formateado
+        return self.model_dump_json(indent=4)

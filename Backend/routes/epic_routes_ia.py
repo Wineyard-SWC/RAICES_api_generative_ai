@@ -6,12 +6,14 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 # Local application imports
-from ia import ProjectAssistantAI as Assistant
+from ia import Assistant
 
 
 router = APIRouter()
 
-EpicsGenerativeAI = Assistant(subdirectory='epics_pdfs',persist_directory="./chroma_db")
+EpicsGenerativeAI = Assistant(
+    subdirectory='epics_pdfs'
+)
 
 #PROMPTS BASE
 EpicsPrompt = "Imagina que eres un Product Owner con amplia experiencia en metodologías Agile, " \

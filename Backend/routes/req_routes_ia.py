@@ -10,13 +10,16 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict
 
 # Local application imports
-from ia import ProjectAssistantAI as Assistant
+from ia import Assistant
 from models import RequestBody, ChatResponse, AddContentRequest, ChatMessage
 
 router = APIRouter()
 
 # Instancia de la IA con los documentos de requerimientos
-RequirementsGenerativeAI = Assistant(subdirectory='requirements_pdfs', persist_directory="./chroma_db")
+RequirementsGenerativeAI = Assistant(
+    subdirectory = 'requirements_pdfs',
+
+)
 
 # PROMPTS BASE EXISTENTES
 FunctionalRequirementsPrompt = (
@@ -86,12 +89,12 @@ async def chat(message: ChatMessage):
             newchat=new_conversation
         )
         
-        response_text = functional_response + " " + non_functional_response
+        response_text = f"{functional_response}  {non_functional_response}"
         saved_to_kb = False
         
         if message.save_to_knowledge_base:
             kb_content = f"Pregunta: {message.message}\n\nRespuesta: {response_text}"
-            chunks_added = RequirementsGenerativeAI.add_content_to_knowledge_base(
+            chunks_added = RequirementsGenerativeAI.document_manager.add_content_to_knowledge_base(
                 content=kb_content,
                 source_name=f"chat_{session_id}_{uuid.uuid4()}.txt"
             )
@@ -110,7 +113,7 @@ async def chat(message: ChatMessage):
 @router.get("/chat/history/{session_id}")
 async def get_chat_history(session_id: str):
     try:
-        history = RequirementsGenerativeAI.get_conversation_history(session_id)
+        history = RequirementsGenerativeAI.conversation_manager.get_conversation_history(session_id)
         return JSONResponse(content={"history": history}, status_code=200)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -118,7 +121,7 @@ async def get_chat_history(session_id: str):
 @router.post("/knowledge/add")
 async def add_to_knowledge_base(request: AddContentRequest):
     try:
-        chunks_added = RequirementsGenerativeAI.add_content_to_knowledge_base(
+        chunks_added = RequirementsGenerativeAI.document_manager.add_content_to_knowledge_base(
             content=request.content,
             source_name=request.source_name
         )
@@ -137,7 +140,7 @@ async def learn_from_response(
     save_as: Optional[str] = None
 ):
     try:
-        history = RequirementsGenerativeAI.get_conversation_history(session_id)
+        history = RequirementsGenerativeAI.conversation_manager.get_conversation_history(session_id)
         
         if not history:
             raise HTTPException(status_code=404, detail="No hay historial para esta sesión")
@@ -154,7 +157,7 @@ async def learn_from_response(
         if not save_as:
             save_as = f"learned_{session_id}_{response_index}.txt"
         
-        chunks_added = RequirementsGenerativeAI.add_content_to_knowledge_base(
+        chunks_added = RequirementsGenerativeAI.document_manager.add_content_to_knowledge_base(
             content=content,
             source_name=save_as
         )
