@@ -13,7 +13,7 @@ class ChatMessage(BaseModel):
     save_to_knowledge_base: bool = False
 
 class ChatResponse(BaseModel):
-    response: str
+    message: str
     session_id:str
     saved_to_kb: bool = False
 

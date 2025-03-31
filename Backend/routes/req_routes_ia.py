@@ -2,12 +2,14 @@
 import asyncio 
 import os
 import uuid
-
+from typing import Optional, List, Dict
+import json
+from datetime import datetime
 # Third-party imports
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import Optional, List, Dict
+
 
 # Local application imports
 from ia import Assistant
@@ -18,7 +20,6 @@ router = APIRouter()
 # Instancia de la IA con los documentos de requerimientos
 RequirementsGenerativeAI = Assistant(
     subdirectory = 'requirements_pdfs',
-
 )
 
 # PROMPTS BASE EXISTENTES
@@ -64,6 +65,61 @@ async def generate_non_functional_requirements(project_description, session_id=N
         session_id=session_id
     )
 
+def merge_responses(f_response: str, nf_response: str) -> dict:
+        """
+        Une dos respuestas del modelo (funcional y no funcional) en un solo JSON estandarizado.
+
+        Merges two LLM responses (functional and non-functional) into a unified standardized JSON.
+        """
+        try:
+            f_dict = json.loads(f_response)
+        except json.JSONDecodeError:
+            f_dict = {}
+
+        try:
+            nf_dict = json.loads(nf_response)
+        except json.JSONDecodeError:
+            nf_dict = {}
+
+        f_items = f_dict.get("content", []) if isinstance(f_dict.get("content"), list) else []
+        nf_items = nf_dict.get("content", []) if isinstance(nf_dict.get("content"), list) else []
+
+        seen_ids = set()
+
+        funcionales = []
+        no_funcionales = []
+
+        for item in f_items + nf_items:
+            if not isinstance(item, dict):
+                continue
+            item_id = item.get("id")
+
+            if not item_id or item_id in seen_ids:
+                continue
+            seen_ids.add(item_id)
+
+            if str(item_id).startswith("REQ-NF-"):
+                item["category"] = "No Funcional"
+                no_funcionales.append(item)
+            
+            else:
+                item["category"] = "Funcional"
+                funcionales.append(item)
+
+        combined = {
+            "status": "REQUERIMIENTOS_GENERADOS",
+            "query": f_dict.get("query", "") or nf_dict.get("query", ""),
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "content": {
+                "funcionales": funcionales,
+                "no_funcionales": no_funcionales
+            },
+            "missing_info": None,
+            "metadata": None
+        }
+
+        return combined
+
 @router.post("/chat", response_model=ChatResponse)
 async def chat(message: ChatMessage):
     # Si no se envía session_id o se quiere forzar una nueva conversación, generamos uno nuevo.
@@ -89,7 +145,10 @@ async def chat(message: ChatMessage):
             newchat=new_conversation
         )
         
-        response_text = f"{functional_response}  {non_functional_response}"
+
+        responsejson = merge_responses(f_response=functional_response,nf_response=non_functional_response)
+        response_text = json.dumps(responsejson, indent=4, ensure_ascii=False)
+
         saved_to_kb = False
         
         if message.save_to_knowledge_base:
@@ -101,7 +160,7 @@ async def chat(message: ChatMessage):
             saved_to_kb = True
         
         return ChatResponse(
-            response=response_text,
+            message=response_text,
             session_id=session_id,
             saved_to_kb=saved_to_kb
         )
@@ -115,60 +174,6 @@ async def get_chat_history(session_id: str):
     try:
         history = RequirementsGenerativeAI.conversation_manager.get_conversation_history(session_id)
         return JSONResponse(content={"history": history}, status_code=200)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-    
-@router.post("/knowledge/add")
-async def add_to_knowledge_base(request: AddContentRequest):
-    try:
-        chunks_added = RequirementsGenerativeAI.document_manager.add_content_to_knowledge_base(
-            content=request.content,
-            source_name=request.source_name
-        )
-        
-        return JSONResponse(content={
-            "message": f"Contenido añadido a la base de conocimientos. Se crearon {chunks_added} fragmentos.",
-            "chunks_added": chunks_added
-        }, status_code=200)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@router.post("/knowledge/learn-from-response")
-async def learn_from_response(
-    session_id: str, 
-    response_index: int = -1,  
-    save_as: Optional[str] = None
-):
-    try:
-        history = RequirementsGenerativeAI.conversation_manager.get_conversation_history(session_id)
-        
-        if not history:
-            raise HTTPException(status_code=404, detail="No hay historial para esta sesión")
-        
-        if response_index < 0:
-            response_index = len(history) + response_index
-        
-        if response_index < 0 or response_index >= len(history):
-            raise HTTPException(status_code=400, detail="Índice de respuesta fuera de rango")
-        
-        entry = history[response_index]
-        content = f"Pregunta: {entry['query']}\n\nRespuesta: {entry['response']}"
-        
-        if not save_as:
-            save_as = f"learned_{session_id}_{response_index}.txt"
-        
-        chunks_added = RequirementsGenerativeAI.document_manager.add_content_to_knowledge_base(
-            content=content,
-            source_name=save_as
-        )
-        
-        return JSONResponse(content={
-            "message": f"Respuesta añadida a la base de conocimientos. Se crearon {chunks_added} fragmentos.",
-            "content": content,
-            "file": save_as
-        }, status_code=200)
-    except HTTPException:
-        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     

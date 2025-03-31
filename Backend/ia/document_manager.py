@@ -1,5 +1,30 @@
+"""
+Nombre:
+    document_manager.py
+
+Descripción:
+    Módulo encargado de gestionar la carga, división, almacenamiento y recuperación de documentos
+    para un sistema de generación aumentada por recuperación (RAG).
+
+    Module responsible for loading, splitting, storing, and retrieving documents
+    for a Retrieval-Augmented Generation (RAG) system.
+
+Autor / Author:
+    Abdiel Fritsche Barajas
+
+Fecha de creación / Created: 2025-03-26
+Última modificación / Last modified: 2025-03-29
+Versión / Version: 1.0.0
+"""
+
+# ────────────────────────────────
+# Librerías estándar / Standard libraries
 import os
+from dataclasses import dataclass
 from typing import List, Dict, Any, Optional
+
+# ────────────────────────────────
+# Librerías de terceros / Third-party libraries
 from langchain_community.document_loaders import PyPDFLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
@@ -8,6 +33,22 @@ from langchain_core.documents import Document
 
 
 class DocumentManager:
+    """
+    Clase que administra los documentos usados en el pipeline de RAG.
+
+    Class that manages documents used in the RAG pipeline.
+    """
+    __slots__ = ["KEY",
+                 "pdf_directory",
+                 "persist_directory",
+                 "filter_directories",
+                 "chunk_size",
+                 "chunk_overlap",
+                 "embedding_model",
+                 "vectorstore",
+                 "text_splitter",
+                 "pdf_paths"]
+
     def __init__(
             self,
             KEY: str,
@@ -19,7 +60,12 @@ class DocumentManager:
             chunk_overlap: int = 200,
             
         ) -> None:
-        
+        """
+        Inicializa el gestor de documentos con configuración para embeddings y directorios.
+
+        Initializes the document manager with embedding and directory settings.
+        """
+
         self.KEY = KEY
 
         self.pdf_directory = pdf_directory
@@ -29,31 +75,36 @@ class DocumentManager:
         self.chunk_overlap = chunk_overlap
 
         self.embedding_model = embedding
-
+        
+        # Vectorstore y splitter iniciales
         self.vectorstore = None 
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.chunk_size, 
             chunk_overlap=self.chunk_overlap
         )
         
+        # Determinar qué archivos cargar
         self.pdf_paths = self._get_filtered_pdf_paths()
 
+        # Inicializar vectorstore
         self.initialize_vectorstore()
 
     def _get_filtered_pdf_paths(self):
         """
         Obtiene las rutas de los PDFs aplicando filtros si están configurados.
+
+        Gets the PDF file paths, applying filters if configured.
         """
         all_files = []
         
-        # Si no hay filtros, incluir todos los PDFs del directorio principal
+        
         if self.filter_directories is None:
             return [os.path.join(self.pdf_directory, f) for f in os.listdir(self.pdf_directory) 
                     if f.endswith('.pdf') and os.path.isfile(os.path.join(self.pdf_directory, f))]
         
-        # Procesar solo los subdirectorios especificados
         for subdir in self.filter_directories:
             subdir_path = os.path.join(self.pdf_directory, subdir)
+            
             if os.path.isdir(subdir_path):
                 all_files.extend([
                     os.path.join(subdir_path, f) 
@@ -63,23 +114,31 @@ class DocumentManager:
         
         return all_files
 
-    """
-    FUNCIONES PARA AGREGAR Y CARGAR CONTENIDO AL RAG (GENERACION AUMENTADA POR RECUPERACION)
-    """
-    def initialize_vectorstore(self):
-        """Inicializa o carga el almacén de vectores desde la persistencia"""
-        # Crear embeddings
+    
+    # ────────────────────────────────
+    # FUNCIONES PARA AGREGAR Y CARGAR CONTENIDO AL VECTORSTORE (RAG)
+    # FUNCTIONS FOR LOADING AND ADDING CONTENT TO THE VECTORSTORE (RAG)
+
+    def initialize_vectorstore(self) -> None:
+        """
+        Inicializa o carga el almacén de vectores desde la persistencia.
+
+        Initializes or loads the vector store from persistence.
+        """
         embeddings = self._create_embedings()
         
         if self._vectorstore_exist():
             self._load_existing_vectorstore(embeddings)
-        else:
-            self._create_new_vectorstore(embeddings)
+            return
+        
+        self._create_new_vectorstore(embeddings)
     
-    #FUNCIONES PRIVADAS PARA INITIALIZE VECTORSTORE
     def _create_embedings(self):
-        # Crear embeddings
+        """
+        Crea el modelo de embeddings de Google Generative AI.
 
+        Creates the embedding model from Google Generative AI.
+        """
         embeddings = GoogleGenerativeAIEmbeddings(
             google_api_key=self.KEY,
             model=self.embedding_model
@@ -87,11 +146,19 @@ class DocumentManager:
         return embeddings
     
     def _vectorstore_exist(self):
-        """Verifica si existe un almacén de vectores persistente"""
+        """
+        Verifica si existe un almacén de vectores persistente.
+
+        Checks whether a persistent vector store already exists.
+        """
         return os.path.exists(self.persist_directory) and len(os.listdir(self.persist_directory)) > 0
 
     def _load_existing_vectorstore(self, embeddings):
-        """Carga vectores existentes desde el directorio persistente"""
+        """
+        Carga vectores existentes desde el directorio persistente.
+
+        Loads existing vectors from the persistence directory.
+        """
         print(f"Cargando vectores existentes desde {self.persist_directory}")
         self.vectorstore = Chroma(
             persist_directory=self.persist_directory,
@@ -99,7 +166,11 @@ class DocumentManager:
         )
 
     def _create_new_vectorstore(self, embeddings):
-        """Crea un nuevo almacén de vectores con los documentos cargados"""
+        """
+        Crea un nuevo vectorstore desde cero a partir de los documentos cargados.
+
+        Creates a new vectorstore from scratch using loaded documents.
+        """
         print("Vectorizando documentos por primera vez...")
         os.makedirs(self.persist_directory, exist_ok=True)
         
@@ -112,11 +183,14 @@ class DocumentManager:
         )
         print(f"Vectores guardados en {self.persist_directory}")    
 
-    # Modificar la carga de documentos para respetar los filtros
     def load_documents_from_directory(self, directory):
         """
-        Carga documentos desde un directorio, aplicando filtros si están configurados.
-        Si filter_directories está definido, solo carga documentos de esos subdirectorios.
+        Carga documentos desde un directorio aplicando filtros si están definidos.
+
+        Loads documents from a directory, applying filters if defined.
+
+        Args:
+            directory (str): Ruta base / Base directory path
         """
         if not os.path.exists(directory):
             print(f"El directorio {directory} no existe.")
@@ -124,30 +198,37 @@ class DocumentManager:
         
         documents = []
         
-        # Si hay filtros específicos, usar pdf_paths que ya está filtrado
         if self.filter_directories is not None:
+            
             for filepath in self.pdf_paths:
+                
                 if os.path.isfile(filepath):
                     filename = os.path.basename(filepath)
                     docs = self._load_file_by_type(filepath, filename)
+                    
                     if docs:
                         documents.extend(docs)
+
         else:
-            # Comportamiento original si no hay filtros
             for filename in os.listdir(directory):
+                
                 filepath = os.path.join(directory, filename)
                 
                 if os.path.isfile(filepath):
                     docs = self._load_file_by_type(filepath, filename)
+                    
                     if docs:
                         documents.extend(docs)
         
         return self._split_documents(documents)
 
-    #FUNCIONES PRIVADAS PARA LOAD DOCUMENTS FROM DIRECTORY
 
     def _load_file_by_type(self, filepath, filename):
-        """Carga un archivo según su tipo y retorna los documentos"""
+        """
+        Carga un archivo por tipo (PDF o TXT) y retorna documentos LangChain.
+
+        Loads a file by type (PDF or TXT) and returns LangChain documents.
+        """
         if filename.endswith('.pdf'):
             return PyPDFLoader(filepath).load()
         elif filename.endswith('.txt'):
@@ -155,40 +236,55 @@ class DocumentManager:
         return []
 
     def _split_documents(self, documents):
-        """División de documentos en chunks si hay documentos para procesar"""
+        """
+        Divide documentos en chunks de texto para embeddings.
+
+        Splits documents into text chunks for embedding.
+        """
         if not documents:
             return []
             
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=200
+        )
+
         return text_splitter.split_documents(documents)
     
 
     def add_document(self, content, metadata=None):
-        """Añade un nuevo documento al almacén de vectores"""
+        """
+        Añade un nuevo documento (contenido generado, por ejemplo) al vectorstore.
+
+        Adds a new document (e.g., generated content) to the vectorstore.
+
+        Args:
+            content (str): Contenido textual a añadir / Text content to add
+            metadata (dict): Metadatos opcionales / Optional metadata
+        """
         if metadata is None:
             metadata = {"source": "generated_content"}
         
-        # Crear documento
         document = Document(page_content=content, metadata=metadata)
         
-        # Dividir en chunks
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         docs = text_splitter.split_documents([document])
         
-        # Añadir al almacén de vectores
         ids = self.vectorstore.add_documents(docs)
                 
         return len(docs)
     
     def add_content_to_knowledge_base(self, content, source_name=None):
-        """Añade contenido generado a la base de conocimientos"""
+        """
+        Añade contenido generado al sistema de conocimiento y lo persiste en archivo.
+
+        Adds generated content to the knowledge base and persists it to file.
+        """
         if not source_name:
             source_name = f"generado_{len(os.listdir(self.pdf_directory)) + 1}.txt"
         
-        # Guardar en archivo
         output_path = os.path.join(self.pdf_directory, source_name)
         with open(output_path, 'w', encoding='utf-8') as f:
             f.write(content)
         
-        # Añadir al vectorstore
         return self.add_document(content, metadata={"source": output_path})
