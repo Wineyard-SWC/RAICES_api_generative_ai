@@ -25,7 +25,7 @@ Notas:
 # ────────────────────────────────
 # Librerías estándar / Standard libraries
 import os
-
+import dotenv
 
 # ────────────────────────────────
 # Librerías de terceros / Third-party libraries
@@ -40,10 +40,9 @@ from .content_generator import ContentGenerator
 from .thinking_steps import ThinkingSteps 
 
 
-
 # Claves de entorno para configuración del LLM y embeddings
-Key = os.getenv("GEMINI_API_KEY")
-Embedding = os.getenv("EMBEDDING")
+Key = os.environ.get("GEMINI_API_KEY")
+Embedding = os.environ.get("EMBEDDING")
 
 
 class Assistant:
@@ -78,7 +77,7 @@ class Assistant:
     def __init__(
             self, 
             subdirectory:str,
-            embedding_model:str = Embedding, 
+            embedding_model:str = "models/embedding-001",##Embedding, 
             persist_directory:str = os.path.join(os.path.dirname(__file__), "/chroma_db"),
             filter_directories:str = None,
             thinking_callback:str = None
@@ -146,7 +145,7 @@ class Assistant:
         )
 
 
-    async def generate_content(self, query, preprompt, session_id=None, newchat=False): 
+    async def generate_content(self, query, preprompt, type, session_id=None, newchat=False): 
         """
         Genera contenido en base a una consulta del usuario, utilizando contexto y documentos relacionados.
 
@@ -173,7 +172,7 @@ class Assistant:
         # Prepara el prompt con la conversación e instrucciones
         # Prepare full prompt with history and instructions
         await self.thinking_manager.add_step("Analizando la consulta...", 1.5)
-        qa_prompt = self.content_generator._prepare_prompt(query, preprompt, session_id, newchat)
+        qa_prompt = self.content_generator._prepare_prompt(query, preprompt, session_id, newchat,type=type)
         
         # Simula razonamiento para mejorar experiencia de usuario
         # Simulate step-by-step reasoning

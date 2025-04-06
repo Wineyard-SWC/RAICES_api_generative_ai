@@ -55,7 +55,7 @@ class LLMResponseProcessor:
 
         self.llm = llm
     
-    def standardize_output(self, raw_response, output_type="requirements", missing_info=None,query=""):
+    def standardize_output(self, raw_response, output_type, missing_info=None,query=""):
         """
         Convierte una respuesta cruda del modelo en una respuesta estructurada uniforme.
 
@@ -71,7 +71,9 @@ class LLMResponseProcessor:
             str: Respuesta formateada / Formatted response string
         """
         outputs = {
-            "requirements" : "REQUERIMIENTOS_GENERADOS",
+            "requirimientos" : "REQUERIMIENTOS_GENERADOS",
+            "epicas": "EPICAS_GENERADAS",
+            "historias_usuario": "HISTORIAS_GENERADAS",
             "missing_info" : "INFORMACION_INSUFICIENTE",
             "error" : "ERROR_PROCESAMIENTO"
         }
@@ -204,6 +206,12 @@ class LLMResponseProcessor:
         elif "requerimiento" in content_lower or "requisito" in content_lower:
             return "REQUERIMIENTOS_GENERADOS"
         
+        elif "epicas" in content_lower or "epica" in content_lower:
+            return "EPICAS_GENERADAS"
+        
+        elif "historias_usuario" in content_lower or "historias_usuario" in content_lower:
+            return "HISTORIAS_GENERADAS"
+
         return "RESPUESTA_GENERAL"
 
     def _handle_missing_info(self, complete_data):
@@ -248,9 +256,15 @@ class LLMResponseProcessor:
         elif "error" in lower_response and ("procesar" in lower_response or "procesamiento" in lower_response):
             output_type = "error"
 
-        else:
-            output_type = "requirements"
+        elif "requerimientos" in lower_response or "requirements" in lower_response:
+            output_type = "requerimientos"
         
+        elif "epicas" in lower_response or "epics" in lower_response:
+            output_type = "epicas"
+
+        elif "historias_usuario" in lower_response or "historias_usuario" in lower_response:
+            output_type = "historias_usuario"
+         
         return output_type, raw_response, missing_info
 
     def _extract_missing_info(self, lower_response):

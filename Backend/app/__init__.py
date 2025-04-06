@@ -2,11 +2,11 @@
 
 # Third-party imports
 from fastapi import FastAPI 
-from starlette.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware 
 
 # Local application imports
 
-from routes import epic_ai_router, req_ai_router, app_router,knowledge_ai_router   #<-- Futuras rutas de la API
+from routes import epic_ai_router, req_ai_router, app_router,knowledge_ai_router,user_ai_router   #<-- Futuras rutas de la API
 
 
 
@@ -34,7 +34,7 @@ def create_app() -> FastAPI:
     app.include_router(req_ai_router)
     app.include_router(epic_ai_router)
     app.include_router(knowledge_ai_router)
-    # app.include_router(epic_router) 
+    app.include_router(user_ai_router)
 
     #app.include_router(name.router)<-- Cambiar name por el nombre de la ruta.py
 

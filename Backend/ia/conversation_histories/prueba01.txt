@@ -1,0 +1,944 @@
+Timestamp: 2025-04-04 21:28:02
+Pregunta: Se desarrollará una aplicación de ventas multiplataforma llamada VentaFácil, diseñada para pequeños y medianos negocios que necesitan gestionar sus procesos comerciales de forma ágil y centralizada. La app permitirá registrar productos con fotos, precios y descripciones; manejar inventario en tiempo real; procesar ventas con diferentes métodos de pago; generar facturas automáticamente; y llevar un historial detallado de transacciones. Además, incluirá una sección de reportes con métricas clave como productos más vendidos, ingresos diarios/semanales/mensuales, y desempeño por vendedor. El sistema contará con autenticación de usuarios, distintos roles (vendedor, administrador, supervisor), y soporte para múltiples sucursales. Se integrará con notificaciones push para alertas de stock bajo y promociones activas, y ofrecerá sincronización en la nube para mantener los datos seguros y disponibles desde cualquier dispositivo. La interfaz será intuitiva, responsiva y estará optimizada tanto para móviles como para escritorio, con tecnología basada en React Native, Node.js y PostgreSQL.
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "Se desarrollará una aplicación de ventas multiplataforma llamada VentaFácil, diseñada para pequeños y medianos negocios que necesitan gestionar sus procesos comerciales de forma ágil y centralizada. La app permitirá registrar productos con fotos, precios y descripciones; manejar inventario en tiempo real; procesar ventas con diferentes métodos de pago; generar facturas automáticamente; y llevar un historial detallado de transacciones. Además, incluirá una sección de reportes con métricas clave como productos más vendidos, ingresos diarios/semanales/mensuales, y desempeño por vendedor. El sistema contará con autenticación de usuarios, distintos roles (vendedor, administrador, supervisor), y soporte para múltiples sucursales. Se integrará con notificaciones push para alertas de stock bajo y promociones activas, y ofrecerá sincronización en la nube para mantener los datos seguros y disponibles desde cualquier dispositivo. La interfaz será intuitiva, responsiva y estará optimizada tanto para móviles como para escritorio, con tecnología basada en React Native, Node.js y PostgreSQL.",
+    "timestamp": "2025-04-04 21:28:02",
+    "content": [
+        {
+            "id": "REQ-001",
+            "title": "Registro de Productos",
+            "description": "El sistema debe permitir a los usuarios registrar nuevos productos, incluyendo fotos, precios y descripciones detalladas.",
+            "category": "Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-002",
+            "title": "Gestión de Inventario",
+            "description": "El sistema debe manejar el inventario en tiempo real, actualizando las cantidades disponibles después de cada venta o compra.",
+            "category": "Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-003",
+            "title": "Procesamiento de Ventas",
+            "description": "El sistema debe procesar ventas con diferentes métodos de pago (ej. tarjeta de crédito, efectivo, transferencia).",
+            "category": "Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-004",
+            "title": "Generación de Facturas",
+            "description": "El sistema debe generar facturas automáticamente después de cada venta.",
+            "category": "Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-005",
+            "title": "Historial de Transacciones",
+            "description": "El sistema debe mantener un historial detallado de todas las transacciones realizadas.",
+            "category": "Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-006",
+            "title": "Reportes y Métricas",
+            "description": "El sistema debe generar reportes con métricas clave como productos más vendidos, ingresos diarios/semanales/mensuales, y desempeño por vendedor.",
+            "category": "Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-007",
+            "title": "Autenticación de Usuarios",
+            "description": "El sistema debe requerir autenticación de usuarios para acceder a la aplicación.",
+            "category": "Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-008",
+            "title": "Gestión de Roles",
+            "description": "El sistema debe soportar distintos roles de usuario (vendedor, administrador, supervisor) con diferentes permisos.",
+            "category": "Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-009",
+            "title": "Soporte Multi-Sucursal",
+            "description": "El sistema debe soportar la gestión de múltiples sucursales.",
+            "category": "Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-010",
+            "title": "Notificaciones Push",
+            "description": "El sistema debe enviar notificaciones push para alertas de stock bajo y promociones activas.",
+            "category": "Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-011",
+            "title": "Sincronización en la Nube",
+            "description": "El sistema debe sincronizar los datos en la nube para mantenerlos seguros y disponibles desde cualquier dispositivo.",
+            "category": "Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-NF-001",
+            "title": "Interfaz Intuitiva",
+            "description": "La interfaz de usuario debe ser intuitiva y fácil de usar para todos los roles de usuario.",
+            "category": "No Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-NF-002",
+            "title": "Diseño Responsivo",
+            "description": "La interfaz de usuario debe ser responsiva y adaptarse a diferentes tamaños de pantalla (móviles y escritorio).",
+            "category": "No Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-NF-003",
+            "title": "Rendimiento",
+            "description": "El sistema debe ser rápido y eficiente, con tiempos de respuesta aceptables para todas las operaciones.",
+            "category": "No Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-NF-004",
+            "title": "Seguridad",
+            "description": "El sistema debe garantizar la seguridad de los datos, protegiéndolos contra accesos no autorizados y pérdidas.",
+            "category": "No Funcional",
+            "priority": "Alta"
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: 2025-04-04 21:28:17
+Pregunta: Se desarrollará una aplicación de ventas multiplataforma llamada VentaFácil, diseñada para pequeños y medianos negocios que necesitan gestionar sus procesos comerciales de forma ágil y centralizada. La app permitirá registrar productos con fotos, precios y descripciones; manejar inventario en tiempo real; procesar ventas con diferentes métodos de pago; generar facturas automáticamente; y llevar un historial detallado de transacciones. Además, incluirá una sección de reportes con métricas clave como productos más vendidos, ingresos diarios/semanales/mensuales, y desempeño por vendedor. El sistema contará con autenticación de usuarios, distintos roles (vendedor, administrador, supervisor), y soporte para múltiples sucursales. Se integrará con notificaciones push para alertas de stock bajo y promociones activas, y ofrecerá sincronización en la nube para mantener los datos seguros y disponibles desde cualquier dispositivo. La interfaz será intuitiva, responsiva y estará optimizada tanto para móviles como para escritorio, con tecnología basada en React Native, Node.js y PostgreSQL.
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "Se desarrollará una aplicación de ventas multiplataforma llamada VentaFácil, diseñada para pequeños y medianos negocios que necesitan gestionar sus procesos comerciales de forma ágil y centralizada. La app permitirá registrar productos con fotos, precios y descripciones; manejar inventario en tiempo real; procesar ventas con diferentes métodos de pago; generar facturas automáticamente; y llevar un historial detallado de transacciones. Además, incluirá una sección de reportes con métricas clave como productos más vendidos, ingresos diarios/semanales/mensuales, y desempeño por vendedor. El sistema contará con autenticación de usuarios, distintos roles (vendedor, administrador, supervisor), y soporte para múltiples sucursales. Se integrará con notificaciones push para alertas de stock bajo y promociones activas, y ofrecerá sincronización en la nube para mantener los datos seguros y disponibles desde cualquier dispositivo. La interfaz será intuitiva, responsiva y estará optimizada tanto para móviles como para escritorio, con tecnología basada en React Native, Node.js y PostgreSQL.",
+    "timestamp": "2025-04-04 21:28:17",
+    "content": [
+        {
+            "id": "REQ-NF-001",
+            "title": "Velocidad de respuesta",
+            "description": "El sistema debe procesar las solicitudes de los usuarios (ej. registro de producto, procesamiento de venta) en un plazo máximo de 3 segundos en el 95% de los casos, incluso con una carga de hasta 50 usuarios concurrentes.",
+            "category": "No Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-NF-002",
+            "title": "Disponibilidad del sistema",
+            "description": "El sistema debe mantener un tiempo de actividad del 99.7% mensual, excluyendo ventanas de mantenimiento programadas (notificadas con al menos 24 horas de anticipación).",
+            "category": "No Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-NF-003",
+            "title": "Escalabilidad",
+            "description": "La arquitectura del sistema debe permitir escalar horizontalmente para soportar un aumento del 50% en el número de usuarios y transacciones en un plazo de 6 meses, sin degradación significativa del rendimiento.",
+            "category": "No Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-NF-004",
+            "title": "Seguridad de datos",
+            "description": "Todos los datos sensibles (ej. contraseñas, información de tarjetas de crédito) deben ser encriptados utilizando un algoritmo de encriptación robusto (ej. AES-256).  El sistema debe cumplir con las regulaciones de protección de datos aplicables (ej. GDPR si aplica).",
+            "category": "No Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-NF-005",
+            "title": "Usabilidad",
+            "description": "El sistema debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA para garantizar que sea utilizable por personas con discapacidades.  Se realizarán pruebas de usabilidad con usuarios representativos para identificar y corregir problemas de usabilidad.",
+            "category": "No Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-NF-006",
+            "title": "Portabilidad",
+            "description": "La aplicación debe ser compatible con las últimas dos versiones principales de iOS y Android.",
+            "category": "No Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-NF-007",
+            "title": "Mantenibilidad",
+            "description": "El código base debe estar bien documentado y seguir las mejores prácticas de desarrollo para facilitar el mantenimiento y la evolución del sistema.",
+            "category": "No Funcional",
+            "priority": "Media"
+        },
+        {
+            "id": "REQ-NF-008",
+            "title": "Integridad de Datos",
+            "description": "El sistema debe garantizar la integridad de los datos mediante la implementación de validaciones y restricciones a nivel de base de datos y aplicación.",
+            "category": "No Funcional",
+            "priority": "Alta"
+        },
+        {
+            "id": "REQ-NF-009",
+            "title": "Confiabilidad",
+            "description": "El sistema debe recuperarse automáticamente de errores y fallas menores sin intervención manual.  Se implementarán mecanismos de registro y monitoreo para detectar y diagnosticar problemas rápidamente.",
+            "category": "No Funcional",
+            "priority": "Media"
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: 2025-04-04 21:30:46
+Pregunta: - (REQ-011) Sincronización en la Nube: El sistema debe sincronizar los datos en la nube para mantenerlos seguros y disponibles desde cualquier dispositivo.
+- (REQ-NF-001) Interfaz Intuitiva: La interfaz de usuario debe ser intuitiva y fácil de usar para todos los roles de usuario.
+- (REQ-NF-002) Diseño Responsivo: La interfaz de usuario debe ser responsiva y adaptarse a diferentes tamaños de pantalla (móviles y escritorio).
+- (REQ-NF-003) Rendimiento: El sistema debe ser rápido y eficiente, con tiempos de respuesta aceptables para todas las operaciones.
+- (REQ-NF-004) Seguridad: El sistema debe garantizar la seguridad de los datos, protegiéndolos contra accesos no autorizados y pérdidas.
+
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "- (REQ-011) Sincronización en la Nube: El sistema debe sincronizar los datos en la nube para mantenerlos seguros y disponibles desde cualquier dispositivo.\n- (REQ-NF-001) Interfaz Intuitiva: La interfaz de usuario debe ser intuitiva y fácil de usar para todos los roles de usuario.\n- (REQ-NF-002) Diseño Responsivo: La interfaz de usuario debe ser responsiva y adaptarse a diferentes tamaños de pantalla (móviles y escritorio).\n- (REQ-NF-003) Rendimiento: El sistema debe ser rápido y eficiente, con tiempos de respuesta aceptables para todas las operaciones.\n- (REQ-NF-004) Seguridad: El sistema debe garantizar la seguridad de los datos, protegiéndolos contra accesos no autorizados y pérdidas.\n",
+    "timestamp": "2025-04-04 21:30:46",
+    "content": [
+        {
+            "id": "REQ-001",
+            "title": "Implementación de Sincronización de Datos en la Nube",
+            "description": "Desarrollar un sistema de sincronización de datos en la nube para asegurar la disponibilidad y seguridad de la información desde cualquier dispositivo.",
+            "related_requirements": [
+                {
+                    "id": "REQ-011",
+                    "description": "El sistema debe sincronizar los datos en la nube para mantenerlos seguros y disponibles desde cualquier dispositivo."
+                }
+            ]
+        },
+        {
+            "id": "REQ-002",
+            "title": "Desarrollo de una Interfaz de Usuario Intuitiva y Accesible",
+            "description": "Crear una interfaz de usuario que sea fácil de usar, intuitiva y accesible para todos los roles de usuario, adaptándose a diferentes dispositivos.",
+            "related_requirements": [
+                {
+                    "id": "REQ-NF-001",
+                    "description": "La interfaz de usuario debe ser intuitiva y fácil de usar para todos los roles de usuario."
+                },
+                {
+                    "id": "REQ-NF-002",
+                    "description": "La interfaz de usuario debe ser responsiva y adaptarse a diferentes tamaños de pantalla (móviles y escritorio)."
+                }
+            ]
+        },
+        {
+            "id": "REQ-003",
+            "title": "Optimización del Rendimiento del Sistema",
+            "description": "Asegurar que el sistema opere de manera rápida y eficiente, cumpliendo con los estándares de rendimiento establecidos.",
+            "related_requirements": [
+                {
+                    "id": "REQ-NF-003",
+                    "description": "El sistema debe ser rápido y eficiente, con tiempos de respuesta aceptables para todas las operaciones."
+                }
+            ]
+        },
+        {
+            "id": "REQ-004",
+            "title": "Implementación de Medidas de Seguridad para la Protección de Datos",
+            "description": "Implementar medidas de seguridad robustas para proteger los datos contra accesos no autorizados y garantizar la confidencialidad e integridad de la información.",
+            "related_requirements": [
+                {
+                    "id": "REQ-NF-004",
+                    "description": "El sistema debe garantizar la seguridad de los datos, protegiéndolos contra accesos no autorizados y pérdidas."
+                }
+            ]
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: 2025-04-04 21:31:00
+Pregunta: - (REQ-NF-005) Usabilidad: El sistema debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA para garantizar que sea utilizable por personas con discapacidades.  Se realizarán pruebas de usabilidad con usuarios representativos para identificar y corregir problemas de usabilidad.
+- (REQ-NF-006) Portabilidad: La aplicación debe ser compatible con las últimas dos versiones principales de iOS y Android.
+- (REQ-NF-007) Mantenibilidad: El código base debe estar bien documentado y seguir las mejores prácticas de desarrollo para facilitar el mantenimiento y la evolución del sistema.
+- (REQ-NF-008) Integridad de Datos: El sistema debe garantizar la integridad de los datos mediante la implementación de validaciones y restricciones a nivel de base de datos y aplicación.
+- (REQ-NF-009) Confiabilidad: El sistema debe recuperarse automáticamente de errores y fallas menores sin intervención manual.  Se implementarán mecanismos de registro y monitoreo para detectar y diagnosticar problemas rápidamente.
+
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "- (REQ-NF-005) Usabilidad: El sistema debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA para garantizar que sea utilizable por personas con discapacidades.  Se realizarán pruebas de usabilidad con usuarios representativos para identificar y corregir problemas de usabilidad.\n- (REQ-NF-006) Portabilidad: La aplicación debe ser compatible con las últimas dos versiones principales de iOS y Android.\n- (REQ-NF-007) Mantenibilidad: El código base debe estar bien documentado y seguir las mejores prácticas de desarrollo para facilitar el mantenimiento y la evolución del sistema.\n- (REQ-NF-008) Integridad de Datos: El sistema debe garantizar la integridad de los datos mediante la implementación de validaciones y restricciones a nivel de base de datos y aplicación.\n- (REQ-NF-009) Confiabilidad: El sistema debe recuperarse automáticamente de errores y fallas menores sin intervención manual.  Se implementarán mecanismos de registro y monitoreo para detectar y diagnosticar problemas rápidamente.\n",
+    "timestamp": "2025-04-04 21:31:00",
+    "content": [
+        {
+            "id": "REQ-001",
+            "title": "Asegurar la Accesibilidad y Usabilidad del Sistema",
+            "description": "Garantizar que el sistema sea accesible para usuarios con discapacidades y que cumpla con los estándares de usabilidad mediante pruebas y correcciones iterativas.",
+            "related_requirements": [
+                {
+                    "id": "REQ-NF-005",
+                    "description": "El sistema debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA para garantizar que sea utilizable por personas con discapacidades. Se realizarán pruebas de usabilidad con usuarios representativos para identificar y corregir problemas de usabilidad."
+                }
+            ]
+        },
+        {
+            "id": "REQ-002",
+            "title": "Garantizar la Portabilidad de la Aplicación en Dispositivos Móviles",
+            "description": "Asegurar la compatibilidad de la aplicación con las últimas versiones de los sistemas operativos iOS y Android para maximizar su alcance.",
+            "related_requirements": [
+                {
+                    "id": "REQ-NF-006",
+                    "description": "La aplicación debe ser compatible con las últimas dos versiones principales de iOS y Android."
+                }
+            ]
+        },
+        {
+            "id": "REQ-003",
+            "title": "Promover la Mantenibilidad y Evolución del Código Base",
+            "description": "Implementar prácticas de desarrollo que faciliten el mantenimiento, la actualización y la expansión del sistema a lo largo del tiempo.",
+            "related_requirements": [
+                {
+                    "id": "REQ-NF-007",
+                    "description": "El código base debe estar bien documentado y seguir las mejores prácticas de desarrollo para facilitar el mantenimiento y la evolución del sistema."
+                }
+            ]
+        },
+        {
+            "id": "REQ-004",
+            "title": "Asegurar la Integridad de los Datos en el Sistema",
+            "description": "Implementar mecanismos de validación y restricción de datos para garantizar la precisión y la consistencia de la información almacenada.",
+            "related_requirements": [
+                {
+                    "id": "REQ-NF-008",
+                    "description": "El sistema debe garantizar la integridad de los datos mediante la implementación de validaciones y restricciones a nivel de base de datos y aplicación."
+                }
+            ]
+        },
+        {
+            "id": "REQ-005",
+            "title": "Garantizar la Confiabilidad y Resiliencia del Sistema",
+            "description": "Implementar mecanismos de recuperación ante fallos y monitoreo continuo para asegurar la disponibilidad y el correcto funcionamiento del sistema.",
+            "related_requirements": [
+                {
+                    "id": "REQ-NF-009",
+                    "description": "El sistema debe recuperarse automáticamente de errores y fallas menores sin intervención manual. Se implementarán mecanismos de registro y monitoreo para detectar y diagnosticar problemas rápidamente."
+                }
+            ]
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: Imported
+Pregunta: EPIC: Optimización del Rendimiento del Sistema (EPIC-011)
+Descripción: Asegurar que el sistema opere de manera rápida y eficiente, cumpliendo con los estándares de rendimiento establecidos.
+Requerimientos:
+- REQ-NF-003: El sistema debe ser rápido y eficiente, con tiempos de respuesta aceptables para todas las operaciones.
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "EPIC: Optimización del Rendimiento del Sistema (EPIC-011)\nDescripción: Asegurar que el sistema opere de manera rápida y eficiente, cumpliendo con los estándares de rendimiento establecidos.\nRequerimientos:\n- REQ-NF-003: El sistema debe ser rápido y eficiente, con tiempos de respuesta aceptables para todas las operaciones.\n\nEPIC: Implementación de Medidas de Seguridad para la Protección de Datos (EPIC-012)\nDescripción: Implementar medidas de seguridad robustas para proteger los datos contra accesos no autorizados y garantizar la confidencialidad e integridad de la información.\nRequerimientos:\n- REQ-NF-004: El sistema debe garantizar la seguridad de los datos, protegiéndolos contra accesos no autorizados y pérdidas.\n\nEPIC: Asegurar la Accesibilidad y Usabilidad del Sistema (EPIC-013)\nDescripción: Garantizar que el sistema sea accesible para usuarios con discapacidades y que cumpla con los estándares de usabilidad mediante pruebas y correcciones iterativas.\nRequerimientos:\n- REQ-NF-005: El sistema debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA para garantizar que sea utilizable por personas con discapacidades. Se realizarán pruebas de usabilidad con usuarios representativos para identificar y corregir problemas de usabilidad.\n\nEPIC: Garantizar la Portabilidad de la Aplicación en Dispositivos Móviles (EPIC-014)\nDescripción: Asegurar la compatibilidad de la aplicación con las últimas versiones de los sistemas operativos iOS y Android para maximizar su alcance.\nRequerimientos:\n- REQ-NF-006: La aplicación debe ser compatible con las últimas dos versiones principales de iOS y Android.\n\nEPIC: Promover la Mantenibilidad y Evolución del Código Base (EPIC-015)\nDescripción: Implementar prácticas de desarrollo que faciliten el mantenimiento, la actualización y la expansión del sistema a lo largo del tiempo.\nRequerimientos:\n- REQ-NF-007: El código base debe estar bien documentado y seguir las mejores prácticas de desarrollo para facilitar el mantenimiento y la evolución del sistema.\n\n",
+    "timestamp": "2025-04-04 21:41:17",
+    "content": [
+        {
+            "id": "REQ-016",
+            "title": "Optimizar tiempos de respuesta",
+            "description": "Como desarrollador, quiero optimizar los tiempos de respuesta de las consultas a la base de datos para que la aplicación sea más rápida y eficiente.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "Los tiempos de respuesta de las consultas más frecuentes deben ser inferiores a 200ms.",
+                "Se deben identificar y optimizar las consultas lentas.",
+                "Se deben utilizar índices adecuados en la base de datos."
+            ],
+            "assigned_epic": "EPIC-011"
+        },
+        {
+            "id": "REQ-017",
+            "title": "Implementar medidas de seguridad",
+            "description": "Como administrador, quiero implementar medidas de seguridad robustas para proteger los datos de los usuarios contra accesos no autorizados.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "Se deben implementar medidas de seguridad para proteger contra ataques de inyección SQL.",
+                "Se deben encriptar los datos sensibles en la base de datos.",
+                "Se debe implementar un sistema de gestión de contraseñas seguro."
+            ],
+            "assigned_epic": "EPIC-012"
+        },
+        {
+            "id": "REQ-018",
+            "title": "Realizar pruebas de accesibilidad",
+            "description": "Como tester, quiero realizar pruebas de accesibilidad para asegurar que la aplicación sea utilizable por personas con discapacidades.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "La aplicación debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA.",
+                "Se deben utilizar herramientas de prueba de accesibilidad para identificar problemas.",
+                "Se deben corregir los problemas de accesibilidad identificados."
+            ],
+            "assigned_epic": "EPIC-013"
+        },
+        {
+            "id": "REQ-019",
+            "title": "Asegurar compatibilidad con iOS",
+            "description": "Como desarrollador, quiero asegurar que la aplicación sea compatible con las últimas dos versiones principales de iOS para maximizar su alcance.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "La aplicación debe funcionar correctamente en las últimas dos versiones principales de iOS.",
+                "Se deben realizar pruebas en dispositivos iOS reales.",
+                "Se deben corregir los problemas de compatibilidad identificados."
+            ],
+            "assigned_epic": "EPIC-014"
+        },
+        {
+            "id": "REQ-020",
+            "title": "Documentar el código base",
+            "description": "Como desarrollador, quiero documentar el código base para facilitar el mantenimiento y la evolución del sistema.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El código base debe estar bien documentado utilizando comentarios y documentación generada automáticamente.",
+                "Se deben seguir las mejores prácticas de documentación.",
+                "La documentación debe estar actualizada."
+            ],
+            "assigned_epic": "EPIC-015"
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: Imported
+Pregunta: EPIC: Asegurar la Integridad de los Datos en el Sistema (EPIC-016)
+Descripción: Implementar mecanismos de validación y restricción de datos para garantizar la precisión y la consistencia de la información almacenada.
+Requerimientos:
+- REQ-NF-008: El sistema debe garantizar la integridad de los datos mediante la implementación de validaciones y restricciones a nivel de base de datos y aplicación.
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "EPIC: Asegurar la Integridad de los Datos en el Sistema (EPIC-016)\nDescripción: Implementar mecanismos de validación y restricción de datos para garantizar la precisión y la consistencia de la información almacenada.\nRequerimientos:\n- REQ-NF-008: El sistema debe garantizar la integridad de los datos mediante la implementación de validaciones y restricciones a nivel de base de datos y aplicación.\n\nEPIC: Garantizar la Confiabilidad y Resiliencia del Sistema (EPIC-017)\nDescripción: Implementar mecanismos de recuperación ante fallos y monitoreo continuo para asegurar la disponibilidad y el correcto funcionamiento del sistema.\nRequerimientos:\n- REQ-NF-009: El sistema debe recuperarse automáticamente de errores y fallas menores sin intervención manual. Se implementarán mecanismos de registro y monitoreo para detectar y diagnosticar problemas rápidamente.\n\n",
+    "timestamp": "2025-04-04 21:41:33",
+    "content": [
+        {
+            "id": "REQ-021",
+            "title": "Validación de datos de entrada",
+            "description": "Como desarrollador, quiero implementar validaciones en los campos de entrada para asegurar que los datos ingresados por el usuario sean del tipo y formato correcto, para prevenir errores y mantener la integridad de la base de datos.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "Se implementan validaciones de tipo de dato (ej., numérico, alfanumérico, fecha) en los campos de entrada.",
+                "Se implementan validaciones de formato (ej., correo electrónico, número de teléfono) en los campos de entrada.",
+                "Se muestran mensajes de error claros y concisos al usuario cuando los datos ingresados no son válidos.",
+                "Las validaciones se aplican tanto en el frontend como en el backend."
+            ],
+            "assigned_epic": "EPIC-016"
+        },
+        {
+            "id": "REQ-022",
+            "title": "Restricciones a nivel de base de datos",
+            "description": "Como administrador de la base de datos, quiero definir restricciones (constraints) en las tablas para asegurar que los datos cumplan con reglas de negocio específicas, para evitar inconsistencias y garantizar la integridad referencial.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "Se definen claves primarias y foráneas para asegurar la integridad referencial entre las tablas.",
+                "Se definen restricciones de unicidad para evitar la duplicación de datos.",
+                "Se definen restricciones de rango de valores para asegurar que los datos estén dentro de los límites permitidos.",
+                "Se definen restricciones de nulabilidad para asegurar que los campos obligatorios no estén vacíos."
+            ],
+            "assigned_epic": "EPIC-016"
+        },
+        {
+            "id": "REQ-023",
+            "title": "Implementación de registro de eventos",
+            "description": "Como administrador del sistema, quiero implementar un sistema de registro de eventos (logging) para rastrear las acciones importantes que ocurren en la aplicación, para poder diagnosticar problemas y auditar la actividad del sistema.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "Se registran los eventos importantes, como inicios de sesión, errores, modificaciones de datos, etc.",
+                "Los registros incluyen información relevante, como la fecha y hora del evento, el usuario que lo generó, y los detalles del evento.",
+                "Los registros se almacenan en un lugar seguro y accesible para su análisis.",
+                "Se implementa un sistema de rotación de registros para evitar que los archivos de registro crezcan indefinidamente."
+            ],
+            "assigned_epic": "EPIC-017"
+        },
+        {
+            "id": "REQ-024",
+            "title": "Implementación de monitoreo del sistema",
+            "description": "Como administrador del sistema, quiero implementar un sistema de monitoreo para supervisar el estado de la aplicación y detectar problemas de rendimiento o disponibilidad, para poder tomar medidas correctivas de forma proactiva.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "Se monitorean los indicadores clave de rendimiento (KPIs), como el tiempo de respuesta, el uso de la CPU, el uso de la memoria, etc.",
+                "Se configuran alertas para notificar a los administradores cuando se detectan problemas.",
+                "Se implementa un panel de control para visualizar el estado del sistema en tiempo real.",
+                "El sistema de monitoreo es escalable y puede manejar un gran volumen de datos."
+            ],
+            "assigned_epic": "EPIC-017"
+        },
+        {
+            "id": "REQ-025",
+            "title": "Implementación de recuperación automática de errores",
+            "description": "Como desarrollador, quiero implementar mecanismos de recuperación automática para que el sistema pueda recuperarse de errores y fallas menores sin intervención manual, para minimizar el impacto en el usuario y mantener la disponibilidad del sistema.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "Se implementan mecanismos de reintento para operaciones que fallan de forma transitoria.",
+                "Se implementan mecanismos de fallback para proporcionar una funcionalidad alternativa cuando una operación falla.",
+                "Se implementan mecanismos de circuit breaker para evitar que el sistema se sobrecargue cuando un servicio falla repetidamente.",
+                "Se registran los errores y las acciones de recuperación para su análisis."
+            ],
+            "assigned_epic": "EPIC-017"
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: 2025-04-04 22:41:38
+Pregunta: EPIC: Gestión del Catálogo de Productos (EPIC-001)
+Descripción: Implementar la funcionalidad completa para la gestión del catálogo de productos, desde el registro inicial hasta la actualización de la información.
+Requerimientos:
+- REQ-001: El sistema debe permitir a los usuarios registrar nuevos productos, incluyendo fotos, precios y descripciones detalladas.
+
+EPIC: Control de Inventario en Tiempo Real (EPIC-002)
+Descripción: Desarrollar un sistema de gestión de inventario que refleje con precisión las cantidades disponibles y gestione las actualizaciones en tiempo real.
+Requerimientos:
+- REQ-002: El sistema debe manejar el inventario en tiempo real, actualizando las cantidades disponibles después de cada venta o compra.
+
+EPIC: Procesamiento Integral de Ventas (EPIC-003)
+Descripción: Crear un sistema robusto para el procesamiento de ventas que soporte múltiples métodos de pago y asegure la integridad de las transacciones.
+Requerimientos:
+- REQ-003: El sistema debe procesar ventas con diferentes métodos de pago (ej. tarjeta de crédito, efectivo, transferencia).
+- REQ-004: El sistema debe generar facturas automáticamente después de cada venta.
+
+EPIC: Gestión del Historial de Transacciones (EPIC-004)
+Descripción: Implementar un sistema de historial de transacciones que permita el seguimiento y la auditoría de todas las operaciones realizadas en el sistema.
+Requerimientos:
+- REQ-005: El sistema debe mantener un historial detallado de todas las transacciones realizadas.
+
+EPIC: Implementación de Reportes y Métricas de Negocio (EPIC-005)
+Descripción: Desarrollar la capacidad de generar reportes personalizados con métricas clave para el análisis del rendimiento del negocio.
+Requerimientos:
+- REQ-006: El sistema debe generar reportes con métricas clave como productos más vendidos, ingresos diarios/semanales/mensuales, y desempeño por vendedor.
+
+
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "EPIC: Gestión del Catálogo de Productos (EPIC-001)\nDescripción: Implementar la funcionalidad completa para la gestión del catálogo de productos, desde el registro inicial hasta la actualización de la información.\nRequerimientos:\n- REQ-001: El sistema debe permitir a los usuarios registrar nuevos productos, incluyendo fotos, precios y descripciones detalladas.\n\nEPIC: Control de Inventario en Tiempo Real (EPIC-002)\nDescripción: Desarrollar un sistema de gestión de inventario que refleje con precisión las cantidades disponibles y gestione las actualizaciones en tiempo real.\nRequerimientos:\n- REQ-002: El sistema debe manejar el inventario en tiempo real, actualizando las cantidades disponibles después de cada venta o compra.\n\nEPIC: Procesamiento Integral de Ventas (EPIC-003)\nDescripción: Crear un sistema robusto para el procesamiento de ventas que soporte múltiples métodos de pago y asegure la integridad de las transacciones.\nRequerimientos:\n- REQ-003: El sistema debe procesar ventas con diferentes métodos de pago (ej. tarjeta de crédito, efectivo, transferencia).\n- REQ-004: El sistema debe generar facturas automáticamente después de cada venta.\n\nEPIC: Gestión del Historial de Transacciones (EPIC-004)\nDescripción: Implementar un sistema de historial de transacciones que permita el seguimiento y la auditoría de todas las operaciones realizadas en el sistema.\nRequerimientos:\n- REQ-005: El sistema debe mantener un historial detallado de todas las transacciones realizadas.\n\nEPIC: Implementación de Reportes y Métricas de Negocio (EPIC-005)\nDescripción: Desarrollar la capacidad de generar reportes personalizados con métricas clave para el análisis del rendimiento del negocio.\nRequerimientos:\n- REQ-006: El sistema debe generar reportes con métricas clave como productos más vendidos, ingresos diarios/semanales/mensuales, y desempeño por vendedor.\n\n",
+    "timestamp": "2025-04-04 22:41:38",
+    "content": [
+        {
+            "id": "REQ-001",
+            "title": "Registrar un nuevo producto",
+            "description": "Como administrador, quiero registrar un nuevo producto en el catálogo, incluyendo su nombre, descripción, precio, imagen y categoría, para que esté disponible para la venta.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema permite ingresar el nombre del producto.",
+                "El sistema permite ingresar una descripción detallada del producto.",
+                "El sistema permite ingresar el precio del producto.",
+                "El sistema permite cargar una imagen del producto.",
+                "El sistema permite seleccionar una categoría para el producto.",
+                "El sistema guarda la información del producto en la base de datos."
+            ],
+            "assigned_epic": "EPIC-001"
+        },
+        {
+            "id": "REQ-002",
+            "title": "Actualizar información de un producto",
+            "description": "Como administrador, quiero actualizar la información de un producto existente en el catálogo, como su nombre, descripción, precio o imagen, para mantener la información actualizada y precisa.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El sistema permite buscar un producto por su nombre o código.",
+                "El sistema muestra la información actual del producto.",
+                "El sistema permite modificar la información del producto.",
+                "El sistema guarda los cambios en la base de datos."
+            ],
+            "assigned_epic": "EPIC-001"
+        },
+        {
+            "id": "REQ-003",
+            "title": "Ajustar el inventario después de una venta",
+            "description": "Como vendedor, quiero que el sistema actualice automáticamente el inventario después de cada venta, restando la cantidad vendida, para tener un control preciso del stock disponible.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema resta la cantidad vendida del stock del producto.",
+                "El sistema actualiza el stock disponible en la base de datos.",
+                "El sistema muestra el stock actualizado en tiempo real."
+            ],
+            "assigned_epic": "EPIC-002"
+        },
+        {
+            "id": "REQ-004",
+            "title": "Registrar una compra de inventario",
+            "description": "Como administrador, quiero registrar una compra de inventario, indicando la cantidad comprada y el costo, para aumentar el stock disponible y llevar un control de los costos de inventario.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El sistema permite seleccionar el producto a comprar.",
+                "El sistema permite ingresar la cantidad comprada.",
+                "El sistema permite ingresar el costo de la compra.",
+                "El sistema aumenta el stock disponible del producto.",
+                "El sistema registra la compra en el historial de inventario."
+            ],
+            "assigned_epic": "EPIC-002"
+        },
+        {
+            "id": "REQ-005",
+            "title": "Procesar una venta con tarjeta de crédito",
+            "description": "Como vendedor, quiero procesar una venta con tarjeta de crédito, ingresando los datos de la tarjeta y confirmando el pago, para ofrecer una opción de pago conveniente a los clientes.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema permite ingresar los datos de la tarjeta de crédito (número, fecha de vencimiento, código de seguridad).",
+                "El sistema valida los datos de la tarjeta de crédito.",
+                "El sistema se comunica con el procesador de pagos para autorizar la transacción.",
+                "El sistema confirma el pago y genera un recibo."
+            ],
+            "assigned_epic": "EPIC-003"
+        },
+        {
+            "id": "REQ-006",
+            "title": "Generar una factura automática",
+            "description": "Como vendedor, quiero que el sistema genere automáticamente una factura después de cada venta, incluyendo los datos del cliente, los productos vendidos, el precio total y los impuestos, para cumplir con los requisitos legales y proporcionar un comprobante de compra al cliente.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema genera una factura en formato PDF.",
+                "La factura incluye los datos del cliente (nombre, dirección, número de identificación).",
+                "La factura incluye los productos vendidos (nombre, cantidad, precio unitario).",
+                "La factura incluye el precio total, los impuestos y el método de pago.",
+                "La factura se puede descargar e imprimir."
+            ],
+            "assigned_epic": "EPIC-003"
+        },
+        {
+            "id": "REQ-007",
+            "title": "Consultar el historial de transacciones",
+            "description": "Como administrador, quiero consultar el historial de transacciones, filtrando por fecha, cliente o producto, para realizar un seguimiento de las ventas y detectar posibles irregularidades.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El sistema muestra una lista de todas las transacciones realizadas.",
+                "El sistema permite filtrar las transacciones por fecha, cliente o producto.",
+                "El sistema muestra los detalles de cada transacción (fecha, cliente, productos, precio total, método de pago).",
+                "El sistema permite exportar el historial de transacciones a un archivo CSV."
+            ],
+            "assigned_epic": "EPIC-004"
+        },
+        {
+            "id": "REQ-008",
+            "title": "Generar un reporte de productos más vendidos",
+            "description": "Como administrador, quiero generar un reporte de productos más vendidos, indicando la cantidad vendida de cada producto en un período de tiempo determinado, para identificar los productos más populares y tomar decisiones de marketing y ventas.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El sistema permite seleccionar un período de tiempo (ej., diario, semanal, mensual).",
+                "El sistema genera un reporte con los productos más vendidos, ordenados por cantidad vendida.",
+                "El reporte incluye el nombre del producto, la cantidad vendida y el porcentaje de ventas totales.",
+                "El reporte se puede exportar a un archivo PDF o CSV."
+            ],
+            "assigned_epic": "EPIC-005"
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: 2025-04-04 22:41:54
+Pregunta: EPIC: Implementación de Autenticación y Autorización de Usuarios (EPIC-006)
+Descripción: Asegurar el acceso seguro a la aplicación mediante la implementación de un sistema robusto de autenticación y gestión de roles.
+Requerimientos:
+- REQ-007: El sistema debe requerir autenticación de usuarios para acceder a la aplicación.
+- REQ-008: El sistema debe soportar distintos roles de usuario (vendedor, administrador, supervisor) con diferentes permisos.
+
+EPIC: Soporte Multi-Sucursal (EPIC-007)
+Descripción: Permitir la gestión centralizada de múltiples sucursales desde una única instancia del sistema.
+Requerimientos:
+- REQ-009: El sistema debe soportar la gestión de múltiples sucursales.
+
+EPIC: Implementación de Notificaciones Push (EPIC-008)
+Descripción: Integrar un sistema de notificaciones push para mantener a los usuarios informados sobre eventos importantes y promociones.
+Requerimientos:
+- REQ-010: El sistema debe enviar notificaciones push para alertas de stock bajo y promociones activas.
+
+EPIC: Implementación de Sincronización de Datos en la Nube (EPIC-009)
+Descripción: Desarrollar un sistema de sincronización de datos en la nube para asegurar la disponibilidad y seguridad de la información desde cualquier dispositivo.
+Requerimientos:
+- REQ-011: El sistema debe sincronizar los datos en la nube para mantenerlos seguros y disponibles desde cualquier dispositivo.
+
+EPIC: Desarrollo de una Interfaz de Usuario Intuitiva y Accesible (EPIC-010)
+Descripción: Crear una interfaz de usuario que sea fácil de usar, intuitiva y accesible para todos los roles de usuario, adaptándose a diferentes dispositivos.
+Requerimientos:
+- REQ-NF-001: La interfaz de usuario debe ser intuitiva y fácil de usar para todos los roles de usuario.
+- REQ-NF-002: La interfaz de usuario debe ser responsiva y adaptarse a diferentes tamaños de pantalla (móviles y escritorio).
+
+
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "EPIC: Implementación de Autenticación y Autorización de Usuarios (EPIC-006)\nDescripción: Asegurar el acceso seguro a la aplicación mediante la implementación de un sistema robusto de autenticación y gestión de roles.\nRequerimientos:\n- REQ-007: El sistema debe requerir autenticación de usuarios para acceder a la aplicación.\n- REQ-008: El sistema debe soportar distintos roles de usuario (vendedor, administrador, supervisor) con diferentes permisos.\n\nEPIC: Soporte Multi-Sucursal (EPIC-007)\nDescripción: Permitir la gestión centralizada de múltiples sucursales desde una única instancia del sistema.\nRequerimientos:\n- REQ-009: El sistema debe soportar la gestión de múltiples sucursales.\n\nEPIC: Implementación de Notificaciones Push (EPIC-008)\nDescripción: Integrar un sistema de notificaciones push para mantener a los usuarios informados sobre eventos importantes y promociones.\nRequerimientos:\n- REQ-010: El sistema debe enviar notificaciones push para alertas de stock bajo y promociones activas.\n\nEPIC: Implementación de Sincronización de Datos en la Nube (EPIC-009)\nDescripción: Desarrollar un sistema de sincronización de datos en la nube para asegurar la disponibilidad y seguridad de la información desde cualquier dispositivo.\nRequerimientos:\n- REQ-011: El sistema debe sincronizar los datos en la nube para mantenerlos seguros y disponibles desde cualquier dispositivo.\n\nEPIC: Desarrollo de una Interfaz de Usuario Intuitiva y Accesible (EPIC-010)\nDescripción: Crear una interfaz de usuario que sea fácil de usar, intuitiva y accesible para todos los roles de usuario, adaptándose a diferentes dispositivos.\nRequerimientos:\n- REQ-NF-001: La interfaz de usuario debe ser intuitiva y fácil de usar para todos los roles de usuario.\n- REQ-NF-002: La interfaz de usuario debe ser responsiva y adaptarse a diferentes tamaños de pantalla (móviles y escritorio).\n\n",
+    "timestamp": "2025-04-04 22:41:54",
+    "content": [
+        {
+            "id": "REQ-001",
+            "title": "Login con credenciales",
+            "description": "Como usuario, quiero ingresar mis credenciales (usuario y contraseña) para acceder de forma segura a la aplicación.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema debe presentar un formulario de inicio de sesión.",
+                "El sistema debe validar las credenciales ingresadas contra la base de datos.",
+                "El sistema debe permitir el acceso a la aplicación si las credenciales son correctas.",
+                "El sistema debe mostrar un mensaje de error si las credenciales son incorrectas."
+            ],
+            "assigned_epic": "EPIC-006"
+        },
+        {
+            "id": "REQ-002",
+            "title": "Asignación de roles a usuarios",
+            "description": "Como administrador, quiero asignar roles (vendedor, administrador, supervisor) a los usuarios para controlar su acceso a las diferentes funcionalidades de la aplicación.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema debe permitir la creación y gestión de roles.",
+                "El sistema debe permitir la asignación de roles a los usuarios.",
+                "El sistema debe aplicar los permisos correspondientes a cada rol.",
+                "El sistema debe impedir el acceso a funcionalidades no autorizadas según el rol del usuario."
+            ],
+            "assigned_epic": "EPIC-006"
+        },
+        {
+            "id": "REQ-003",
+            "title": "Seleccionar sucursal",
+            "description": "Como usuario, quiero seleccionar la sucursal en la que estoy trabajando para que la información mostrada sea específica de esa sucursal.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El sistema debe mostrar una lista de sucursales disponibles.",
+                "El usuario debe poder seleccionar una sucursal de la lista.",
+                "El sistema debe guardar la sucursal seleccionada para la sesión del usuario.",
+                "La información mostrada en la aplicación debe estar filtrada por la sucursal seleccionada."
+            ],
+            "assigned_epic": "EPIC-007"
+        },
+        {
+            "id": "REQ-004",
+            "title": "Recibir alerta de stock bajo",
+            "description": "Como administrador, quiero recibir una notificación push cuando el stock de un producto esté bajo para poder reponerlo a tiempo.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El sistema debe detectar cuando el stock de un producto alcanza un umbral mínimo.",
+                "El sistema debe enviar una notificación push al administrador con la información del producto y el stock actual.",
+                "La notificación debe incluir un enlace para acceder a la página de gestión de inventario."
+            ],
+            "assigned_epic": "EPIC-008"
+        },
+        {
+            "id": "REQ-005",
+            "title": "Sincronización automática de datos",
+            "description": "Como usuario, quiero que los datos se sincronicen automáticamente en la nube para poder acceder a ellos desde cualquier dispositivo y tener una copia de seguridad segura.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema debe sincronizar los datos automáticamente en segundo plano.",
+                "Los datos deben sincronizarse de forma segura utilizando encriptación.",
+                "El usuario debe poder acceder a los datos desde cualquier dispositivo con conexión a internet.",
+                "El sistema debe notificar al usuario si hay problemas con la sincronización."
+            ],
+            "assigned_epic": "EPIC-009"
+        },
+        {
+            "id": "REQ-006",
+            "title": "Navegación intuitiva",
+            "description": "Como usuario, quiero una interfaz intuitiva y fácil de usar para poder encontrar rápidamente lo que necesito.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "La navegación debe ser clara y consistente en toda la aplicación.",
+                "Los elementos de la interfaz deben ser fáciles de entender.",
+                "El usuario debe poder encontrar la información que necesita en pocos pasos.",
+                "La aplicación debe tener un diseño visual atractivo."
+            ],
+            "assigned_epic": "EPIC-010"
+        },
+        {
+            "id": "REQ-007",
+            "title": "Diseño responsivo",
+            "description": "Como usuario, quiero que la aplicación se adapte a diferentes tamaños de pantalla para poder usarla cómodamente en mi móvil, tablet o escritorio.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "La aplicación debe adaptarse a diferentes tamaños de pantalla sin perder funcionalidad.",
+                "Los elementos de la interfaz deben redimensionarse correctamente en diferentes dispositivos.",
+                "La aplicación debe ser usable en dispositivos móviles, tablets y escritorios."
+            ],
+            "assigned_epic": "EPIC-010"
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: 2025-04-04 22:42:09
+Pregunta: EPIC: Optimización del Rendimiento del Sistema (EPIC-011)
+Descripción: Asegurar que el sistema opere de manera rápida y eficiente, cumpliendo con los estándares de rendimiento establecidos.
+Requerimientos:
+- REQ-NF-003: El sistema debe ser rápido y eficiente, con tiempos de respuesta aceptables para todas las operaciones.
+
+EPIC: Implementación de Medidas de Seguridad para la Protección de Datos (EPIC-012)
+Descripción: Implementar medidas de seguridad robustas para proteger los datos contra accesos no autorizados y garantizar la confidencialidad e integridad de la información.
+Requerimientos:
+- REQ-NF-004: El sistema debe garantizar la seguridad de los datos, protegiéndolos contra accesos no autorizados y pérdidas.
+
+EPIC: Asegurar la Accesibilidad y Usabilidad del Sistema (EPIC-013)
+Descripción: Garantizar que el sistema sea accesible para usuarios con discapacidades y que cumpla con los estándares de usabilidad mediante pruebas y correcciones iterativas.
+Requerimientos:
+- REQ-NF-005: El sistema debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA para garantizar que sea utilizable por personas con discapacidades. Se realizarán pruebas de usabilidad con usuarios representativos para identificar y corregir problemas de usabilidad.
+
+EPIC: Garantizar la Portabilidad de la Aplicación en Dispositivos Móviles (EPIC-014)
+Descripción: Asegurar la compatibilidad de la aplicación con las últimas versiones de los sistemas operativos iOS y Android para maximizar su alcance.
+Requerimientos:
+- REQ-NF-006: La aplicación debe ser compatible con las últimas dos versiones principales de iOS y Android.
+
+EPIC: Promover la Mantenibilidad y Evolución del Código Base (EPIC-015)
+Descripción: Implementar prácticas de desarrollo que faciliten el mantenimiento, la actualización y la expansión del sistema a lo largo del tiempo.
+Requerimientos:
+- REQ-NF-007: El código base debe estar bien documentado y seguir las mejores prácticas de desarrollo para facilitar el mantenimiento y la evolución del sistema.
+
+
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "EPIC: Optimización del Rendimiento del Sistema (EPIC-011)\nDescripción: Asegurar que el sistema opere de manera rápida y eficiente, cumpliendo con los estándares de rendimiento establecidos.\nRequerimientos:\n- REQ-NF-003: El sistema debe ser rápido y eficiente, con tiempos de respuesta aceptables para todas las operaciones.\n\nEPIC: Implementación de Medidas de Seguridad para la Protección de Datos (EPIC-012)\nDescripción: Implementar medidas de seguridad robustas para proteger los datos contra accesos no autorizados y garantizar la confidencialidad e integridad de la información.\nRequerimientos:\n- REQ-NF-004: El sistema debe garantizar la seguridad de los datos, protegiéndolos contra accesos no autorizados y pérdidas.\n\nEPIC: Asegurar la Accesibilidad y Usabilidad del Sistema (EPIC-013)\nDescripción: Garantizar que el sistema sea accesible para usuarios con discapacidades y que cumpla con los estándares de usabilidad mediante pruebas y correcciones iterativas.\nRequerimientos:\n- REQ-NF-005: El sistema debe cumplir con las pautas de accesibilidad WCAG 2.1 nivel AA para garantizar que sea utilizable por personas con discapacidades. Se realizarán pruebas de usabilidad con usuarios representativos para identificar y corregir problemas de usabilidad.\n\nEPIC: Garantizar la Portabilidad de la Aplicación en Dispositivos Móviles (EPIC-014)\nDescripción: Asegurar la compatibilidad de la aplicación con las últimas versiones de los sistemas operativos iOS y Android para maximizar su alcance.\nRequerimientos:\n- REQ-NF-006: La aplicación debe ser compatible con las últimas dos versiones principales de iOS y Android.\n\nEPIC: Promover la Mantenibilidad y Evolución del Código Base (EPIC-015)\nDescripción: Implementar prácticas de desarrollo que faciliten el mantenimiento, la actualización y la expansión del sistema a lo largo del tiempo.\nRequerimientos:\n- REQ-NF-007: El código base debe estar bien documentado y seguir las mejores prácticas de desarrollo para facilitar el mantenimiento y la evolución del sistema.\n\n",
+    "timestamp": "2025-04-04 22:42:09",
+    "content": [
+        {
+            "id": "REQ-026",
+            "title": "Optimizar la velocidad de carga de la página de inicio",
+            "description": "Como usuario, quiero que la página de inicio se cargue rápidamente para poder acceder a la aplicación sin demoras.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "La página de inicio se carga en menos de 2 segundos en una conexión de red promedio.",
+                "Se utilizan técnicas de optimización de imágenes y compresión de archivos para reducir el tamaño de la página.",
+                "Se implementa el almacenamiento en caché del navegador para reducir los tiempos de carga en visitas posteriores."
+            ],
+            "assigned_epic": "EPIC-011"
+        },
+        {
+            "id": "REQ-027",
+            "title": "Proteger la información personal de los usuarios",
+            "description": "Como usuario, quiero que mi información personal esté protegida contra accesos no autorizados para garantizar mi privacidad.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "Se utiliza encriptación para proteger la información personal de los usuarios en tránsito y en reposo.",
+                "Se implementan controles de acceso basados en roles para limitar el acceso a la información sensible.",
+                "Se realizan auditorías de seguridad periódicas para identificar y corregir vulnerabilidades."
+            ],
+            "assigned_epic": "EPIC-012"
+        },
+        {
+            "id": "REQ-028",
+            "title": "Navegar por la aplicación utilizando un lector de pantalla",
+            "description": "Como usuario con discapacidad visual, quiero poder navegar por la aplicación utilizando un lector de pantalla para poder acceder a todas las funcionalidades.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "Todos los elementos de la interfaz de usuario tienen etiquetas y descripciones accesibles para los lectores de pantalla.",
+                "El orden de los elementos en la interfaz de usuario es lógico y fácil de seguir con un lector de pantalla.",
+                "Se proporcionan alternativas textuales para todas las imágenes y elementos no textuales."
+            ],
+            "assigned_epic": "EPIC-013"
+        },
+        {
+            "id": "REQ-029",
+            "title": "Utilizar la aplicación en mi dispositivo Android",
+            "description": "Como usuario, quiero poder utilizar la aplicación en mi dispositivo Android con la última versión del sistema operativo para poder acceder a todas las funcionalidades.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "La aplicación es compatible con las últimas dos versiones principales de Android.",
+                "La aplicación se instala y ejecuta correctamente en dispositivos Android reales.",
+                "La aplicación utiliza las características y API más recientes de Android."
+            ],
+            "assigned_epic": "EPIC-014"
+        },
+        {
+            "id": "REQ-030",
+            "title": "Entender el código base de la aplicación",
+            "description": "Como desarrollador, quiero que el código base de la aplicación esté bien documentado para poder entenderlo fácilmente y realizar modificaciones sin introducir errores.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El código base está documentado utilizando comentarios y documentación generada automáticamente.",
+                "Se siguen las convenciones de codificación y las mejores prácticas de desarrollo.",
+                "La documentación está actualizada y refleja el estado actual del código."
+            ],
+            "assigned_epic": "EPIC-015"
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+
+Timestamp: 2025-04-04 22:42:23
+Pregunta: EPIC: Asegurar la Integridad de los Datos en el Sistema (EPIC-016)
+Descripción: Implementar mecanismos de validación y restricción de datos para garantizar la precisión y la consistencia de la información almacenada.
+Requerimientos:
+- REQ-NF-008: El sistema debe garantizar la integridad de los datos mediante la implementación de validaciones y restricciones a nivel de base de datos y aplicación.
+
+EPIC: Garantizar la Confiabilidad y Resiliencia del Sistema (EPIC-017)
+Descripción: Implementar mecanismos de recuperación ante fallos y monitoreo continuo para asegurar la disponibilidad y el correcto funcionamiento del sistema.
+Requerimientos:
+- REQ-NF-009: El sistema debe recuperarse automáticamente de errores y fallas menores sin intervención manual. Se implementarán mecanismos de registro y monitoreo para detectar y diagnosticar problemas rápidamente.
+
+
+
+Respuesta: {
+    "status": "RESPUESTA_GENERAL",
+    "query": "EPIC: Asegurar la Integridad de los Datos en el Sistema (EPIC-016)\nDescripción: Implementar mecanismos de validación y restricción de datos para garantizar la precisión y la consistencia de la información almacenada.\nRequerimientos:\n- REQ-NF-008: El sistema debe garantizar la integridad de los datos mediante la implementación de validaciones y restricciones a nivel de base de datos y aplicación.\n\nEPIC: Garantizar la Confiabilidad y Resiliencia del Sistema (EPIC-017)\nDescripción: Implementar mecanismos de recuperación ante fallos y monitoreo continuo para asegurar la disponibilidad y el correcto funcionamiento del sistema.\nRequerimientos:\n- REQ-NF-009: El sistema debe recuperarse automáticamente de errores y fallas menores sin intervención manual. Se implementarán mecanismos de registro y monitoreo para detectar y diagnosticar problemas rápidamente.\n\n",
+    "timestamp": "2025-04-04 22:42:23",
+    "content": [
+        {
+            "id": "REQ-001",
+            "title": "Validar formato de correo electrónico",
+            "description": "Como usuario, quiero que el sistema valide el formato de mi correo electrónico al registrarme para asegurarme de que sea correcto y recibir notificaciones importantes.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema verifica que el correo electrónico ingresado tenga un formato válido (ej., usuario@dominio.com).",
+                "El sistema muestra un mensaje de error si el formato del correo electrónico es incorrecto.",
+                "El registro no se completa si el correo electrónico no tiene un formato válido."
+            ],
+            "assigned_epic": "EPIC-016"
+        },
+        {
+            "id": "REQ-002",
+            "title": "Restringir longitud de contraseñas",
+            "description": "Como administrador, quiero que el sistema restrinja la longitud de las contraseñas para asegurar que sean lo suficientemente seguras y proteger las cuentas de los usuarios.",
+            "priority": "Alta",
+            "acceptance_criteria": [
+                "El sistema requiere que las contraseñas tengan una longitud mínima de 8 caracteres.",
+                "El sistema permite contraseñas con una longitud máxima de 20 caracteres.",
+                "El sistema muestra un mensaje de error si la contraseña no cumple con los requisitos de longitud."
+            ],
+            "assigned_epic": "EPIC-016"
+        },
+        {
+            "id": "REQ-003",
+            "title": "Monitorear el uso de la CPU",
+            "description": "Como administrador, quiero que el sistema monitoree el uso de la CPU para identificar posibles problemas de rendimiento y asegurar que la aplicación funcione sin problemas.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El sistema registra el uso de la CPU en intervalos regulares.",
+                "El sistema genera alertas si el uso de la CPU supera un umbral definido.",
+                "El sistema muestra un gráfico del uso de la CPU a lo largo del tiempo."
+            ],
+            "assigned_epic": "EPIC-017"
+        },
+        {
+            "id": "REQ-004",
+            "title": "Reiniciar la aplicación automáticamente en caso de error",
+            "description": "Como usuario, quiero que la aplicación se reinicie automáticamente en caso de un error inesperado para poder seguir utilizando la aplicación sin interrupciones.",
+            "priority": "Media",
+            "acceptance_criteria": [
+                "El sistema detecta errores inesperados que causan el cierre de la aplicación.",
+                "El sistema reinicia la aplicación automáticamente después de un error.",
+                "El sistema registra el error y la acción de reinicio en un archivo de registro."
+            ],
+            "assigned_epic": "EPIC-017"
+        }
+    ],
+    "missing_info": null,
+    "metadata": null
+}
+--- Fin de respuesta ---
+

@@ -8,7 +8,7 @@ from pydantic import BaseModel, Field
 class EpicResponse(BaseModel):
     """Modelo para respuestas estructuradas del asistente de proyectos."""
     
-    status: Literal["EPICAS_GENERADOS", "INFORMACION_INSUFICIENTE", "ERROR_PROCESAMIENTO", "RESPUESTA_GENERAL"] = Field(
+    status: Literal["EPICAS_GENERADAS", "INFORMACION_INSUFICIENTE", "ERROR_PROCESAMIENTO", "RESPUESTA_GENERAL"] = Field(
         description="Estado de la respuesta generada"
     )
     query: str = Field(default="", description="Consulta original del usuario")
@@ -28,30 +28,26 @@ class EpicResponse(BaseModel):
         description="Metadatos adicionales sobre la respuesta"
     )
 
+
     def _format_epics(self, epics: List[Dict]) -> List[Dict]:
         """
-        Reformatea el ID de cada épica al formato EPIC-### si es necesario.
-
-        Reformat each epic ID to 'EPIC-###'.
+            Reformatea el ID de cada épica al formato EPIC-###.
+            Reformat each epic ID to 'EPIC-###'.
         """
         formatted = []
-        for epic in epics:
+        for i, epic in enumerate(epics, 1):
             new_epic = epic.copy()
-            raw_id = new_epic.get("id", None)
 
-            try:
-                num = int(raw_id)
-            except (ValueError, TypeError):
-                num_match = re.search(r'\d+', str(raw_id))
-                num = int(num_match.group()) if num_match else 0
+            # Forzar nuevo ID incremental EPIC-001, EPIC-002, etc.
+            new_epic["id"] = f"EPIC-{i:03d}"
 
-            new_epic["id"] = f"EPIC-{num:03d}"
-
+            # Asegurar que related_requirements sea una lista
             if not isinstance(new_epic.get("related_requirements"), list):
                 new_epic["related_requirements"] = []
 
             formatted.append(new_epic)
         return formatted
+
 
     def format_response(self) -> str:
         """

@@ -36,6 +36,7 @@ from langchain.prompts import PromptTemplate, MessagesPlaceholder
 # Imports locales / Local imports
 from models import RequirementResponse
 from models import EpicResponse
+from models import UserStoryResponse
 
 class ContentGenerator:
     """
@@ -120,6 +121,8 @@ class ContentGenerator:
             parser = JsonOutputParser(pydantic_object=RequirementResponse)
         elif type == "epicas":
             parser = JsonOutputParser(pydantic_object=EpicResponse)
+        elif type == "historias_usuario":
+            parser = JsonOutputParser(pydantic_object=UserStoryResponse)
         else:
             parser = JsonOutputParser(pydantic_object=RequirementResponse)
 
@@ -180,7 +183,23 @@ class ContentGenerator:
                 "Genera tu respuesta en el siguiente formato estructurado JSON. Asegúrate de incluir SIEMPRE el campo '{{status}}':\n\n" 
                 f"{escaped_format_instructions}\n\n"
                 "IMPORTANTE: El campo '{{status}}' es OBLIGATORIO y debe ser uno de estos valores:\n"
-                "- 'REQUERIMIENTOS_GENERADOS si puedes generar epicas en base a los requerimientos que tienes si es posible, no olvides que SIEMPRE debes usar los campos id (EPIC-###) title,description, y related_requirements donde pondras el id del requerimiento con formato REQ-### para funcionales y REQ-NF-### para no funcionales y su descripcion como lista'\n"
+                "- 'EPICAS_GENERADAS si puedes generar epicas en base a los requerimientos que tienes si es posible, no olvides que SIEMPRE debes usar los campos id en formato obligatorio (EPIC-###) title,description, y related_requirements donde pondras el id del requerimiento con formato REQ-### para funcionales y REQ-NF-### para no funcionales y su descripcion como lista'\n"
+                "- 'INFORMACION_INSUFICIENTE cuando consideres que falta informacion, y listala dentro del campo missing_info'\n"
+                "- 'ERROR_PROCESAMIENTO cuando surja un error'\n"
+                "- 'RESPUESTA_GENERAL para una respuesta fuera de esos atributos '\n\n"
+                "- Si te piden cualquier cosa que no sea un proyecto de software, responde textualmente:\n"
+                "- 'Como asistente virtual no puedo proporcionarte la respuesta para eso, solo puedo asistirte con asistencia de proyectos de software'\n"
+                "Finalmente, responde siempre en el lenguaje que te hablen."
+            )
+        
+        elif type == "historias_usuario":
+            return (
+                f"{preprompt} Utiliza la información siguiente para profundizar y enriquecer tu respuesta "
+                "o como una base para construir lo que se te pide: \n\n{context}\n\n" 
+                "Genera tu respuesta en el siguiente formato estructurado JSON. Asegúrate de incluir SIEMPRE el campo '{{status}}':\n\n" 
+                f"{escaped_format_instructions}\n\n"
+                "IMPORTANTE: El campo '{{status}}' es OBLIGATORIO y debe ser uno de estos valores:\n"
+                "- 'HISTORIAS_GENERADAS si puedes generar epicas en base a los requerimientos que tienes si es posible, no olvides que SIEMPRE debes usar los campos id en formato obligatorio (US-###) title, description,priority(Alta,Media,Baja), y assigned_epic donde pondras el id del la EPICA con formato EPIC-### para la epica asociada a la Historia de usuario, igualmente agrega el campo acceptance_criteria como una lista de criterios de aceptacion para la historia de usuario'\n"
                 "- 'INFORMACION_INSUFICIENTE cuando consideres que falta informacion, y listala dentro del campo missing_info'\n"
                 "- 'ERROR_PROCESAMIENTO cuando surja un error'\n"
                 "- 'RESPUESTA_GENERAL para una respuesta fuera de esos atributos '\n\n"
