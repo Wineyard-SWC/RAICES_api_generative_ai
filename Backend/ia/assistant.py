@@ -145,7 +145,7 @@ class Assistant:
         )
 
 
-    async def generate_content(self, query, preprompt, type, session_id=None, newchat=False): 
+    async def generate_content(self, query, preprompt, type, session_id=None, newchat=False, final_response=None): 
         """
         Genera contenido en base a una consulta del usuario, utilizando contexto y documentos relacionados.
 
@@ -189,7 +189,7 @@ class Assistant:
         
         # Actualiza el historial de conversación con la nueva interacción
         # Update conversation history with this interaction
-        self.content_generator._update_conversation_history(session_id, query, standardized_answer, response)
+        #self.content_generator._update_conversation_history(session_id, query, standardized_answer, response,final_response)
         
         await self.thinking_manager.complete()
 

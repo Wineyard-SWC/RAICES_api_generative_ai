@@ -19,6 +19,7 @@ Versión / Version: 1.0.0
 # Librerías estándar / Standard libraries
 import uuid
 import os
+from datetime import datetime
 
 # ────────────────────────────────
 # Librerías de terceros / Third-party libraries
@@ -317,3 +318,36 @@ class ConversationManager:
                 print(f"Error al eliminar archivo de historial: {str(e)}")
                 return False
         return True
+    
+
+    def update_history_with_final_response(self, session_id, query, final_response):
+        """
+        Actualiza el historial con una respuesta final procesada.
+        
+        Args:
+            session_id (str): ID de la sesión
+            query (str): La consulta original del usuario
+            final_response: La respuesta final procesada que se enviará al usuario
+        """
+        
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        if session_id in self.conversations:
+
+            if self.conversations[session_id]["history"] and self.conversations[session_id]["history"][-1]["query"] == query:
+                self.conversations[session_id]["history"][-1] = {
+                    "query": query,
+                    "response": final_response,
+                    "timestamp": timestamp,
+                    "raw_response": "Combined response"
+                }
+
+            else:
+                self.conversations[session_id]["history"].append({
+                    "query": query,
+                    "response": final_response,
+                    "timestamp": timestamp,
+                    "raw_response": "Combined response"
+                })
+            
+            self.auto_save_history(session_id)

@@ -2,6 +2,14 @@ from pydantic import BaseModel, Field
 from typing import Literal, Optional, Dict, List, Union
 from datetime import datetime
 
+class UserStoryItem(BaseModel):
+    id: str
+    title: str
+    description: str
+    priority: Literal["Alta", "Media", "Baja"]
+    assigned_epic: str
+    acceptance_criteria: List[str]
+
 class UserStoryResponse(BaseModel):
     """Modelo para respuestas estructuradas de historias de usuario generadas por IA."""
 
@@ -13,7 +21,7 @@ class UserStoryResponse(BaseModel):
         default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         description="Momento en que se generó la respuesta"
     )
-    content: Union[List[Dict], str] = Field(
+    content: Union[List[UserStoryItem], str] = Field(
         description="Contenido principal de la respuesta (HU generadas o mensaje explicativo)"
     )
     missing_info: Optional[List[str]] = Field(
@@ -25,17 +33,23 @@ class UserStoryResponse(BaseModel):
         description="Metadatos adicionales sobre la respuesta"
     )
 
-    def _format_user_stories(self, stories: List[Dict]) -> List[Dict]:
-        """
-        Reformatea el ID de cada HU al formato HU-### y asegura estructura correcta.
-        """
+    def _format_user_stories(self, stories: List[Union[UserStoryItem, Dict]]) -> List[UserStoryItem]:
         formatted = []
+
         for i, story in enumerate(stories, 1):
-            new_story = story.copy()
-            new_story["id"] = f"HU-{i:03d}"
-            if not isinstance(new_story.get("acceptance_criteria"), list):
-                new_story["acceptance_criteria"] = []
-            formatted.append(new_story)
+            item = UserStoryItem(**story) if isinstance(story, dict) else story
+
+            # Asegurar que acceptance_criteria sea lista
+            criteria = item.acceptance_criteria if isinstance(item.acceptance_criteria, list) else []
+
+            # Actualizar campos
+            item = item.model_copy(update={
+                "id": f"US-{i:03d}",
+                "acceptance_criteria": criteria
+            })
+
+            formatted.append(item)
+
         return formatted
 
     def format_response(self) -> str:

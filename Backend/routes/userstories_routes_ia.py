@@ -32,7 +32,7 @@ async def generate_user_stories(body: StoryRequestBody):
         for group in epic_groups:
             input_text = JSONOutputFormater.format_epic_group_input(group)
 
-            response = await UserStoriesAI.generate_content(
+            partial_user_stories = await UserStoriesAI.generate_content(
                 query=input_text,
                 preprompt=UserStoryPrompt,
                 session_id=body.session_id,
@@ -40,17 +40,33 @@ async def generate_user_stories(body: StoryRequestBody):
                 newchat=False
             )
 
-            parsed = json.loads(response)
+            parsed = json.loads(partial_user_stories)
             if isinstance(parsed.get("content"), list):
                 all_user_stories.extend(parsed["content"])
+
+        response = JSONOutputFormater.fix_content_ids(all_user_stories,"US")
 
         final_response = {
             "status": "HISTORIAS_GENERADAS",
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "content": JSONOutputFormater.fix_content_ids(all_user_stories,"US"),
+            "content": response,
             "missing_info": None,
             "metadata": None
         }
+
+        final_response_text = json.dumps(final_response, indent=4, ensure_ascii=False)
+        
+        UserStoriesAI.conversation_manager.conversations[body.session_id]["history"].append(
+            {
+                "query": str(epics_data),
+                "response":final_response_text,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "raw_response": final_response
+            }
+        )
+
+        UserStoriesAI.conversation_manager.auto_save_history(body.session_id)
+
 
         return JSONResponse(content=final_response, status_code=200)
 

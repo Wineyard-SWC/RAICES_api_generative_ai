@@ -52,14 +52,29 @@ async def generate_epics(body: EpicRequestBody):
             if isinstance(parsed.get("content"), list):
                 all_epics.extend(parsed["content"])
 
+        response = JSONOutputFormater.fix_content_ids(all_epics,"epic")
+
         final_response = {
             "status": "EPICAS_GENERADOS",
             "query": requirement_chunks,
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "content": JSONOutputFormater.fix_content_ids(all_epics,"epic"),
+            "content": response,
             "missing_info": None,
             "metadata": None
         }
+
+        final_response_text = json.dumps(final_response, indent=4, ensure_ascii=False)
+        
+        EpicsGenerativeAI.conversation_manager.conversations[body.session_id]["history"].append(
+            {
+                "query": str(requirement_chunks),
+                "response":final_response_text,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "raw_response": final_response
+            }
+        )
+
+        EpicsGenerativeAI.conversation_manager.auto_save_history(body.session_id)
 
         return JSONResponse(content=final_response, status_code=200)
 

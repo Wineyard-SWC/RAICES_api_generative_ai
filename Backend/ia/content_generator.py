@@ -253,7 +253,7 @@ class ContentGenerator:
 
         return result
     
-    def _update_conversation_history(self, session_id, query, standardized_answer, response):
+    def _update_conversation_history(self, session_id, query, standardized_answer, response,final_response=None):
         """
         Actualiza el historial de conversación con la nueva entrada y guarda contexto recuperado.
 
@@ -266,12 +266,13 @@ class ContentGenerator:
             response: Respuesta cruda del modelo / Raw response from the model
         """
 
+        response_to_save = final_response if final_response is not None else standardized_answer
 
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         
         self.conversation_manager.conversations[session_id]["history"].append({
             "query": query,
-            "response": standardized_answer,
+            "response": response_to_save,
             "timestamp": timestamp,
             "raw_response": response.get('answer', 'No se encontró respuesta')
         })

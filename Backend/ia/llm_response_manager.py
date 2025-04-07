@@ -33,7 +33,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 # ────────────────────────────────
 # Imports locales / Local imports
-from models import RequirementResponse
+from models import RequirementResponse,UserStoryResponse,EpicResponse
 
 class LLMResponseProcessor:
     """
@@ -70,24 +70,35 @@ class LLMResponseProcessor:
         Returns:
             str: Respuesta formateada / Formatted response string
         """
-        outputs = {
-            "requirimientos" : "REQUERIMIENTOS_GENERADOS",
+
+        status_map = {
+            "requerimientos": "REQUERIMIENTOS_GENERADOS",
             "epicas": "EPICAS_GENERADAS",
             "historias_usuario": "HISTORIAS_GENERADAS",
-            "missing_info" : "INFORMACION_INSUFICIENTE",
-            "error" : "ERROR_PROCESAMIENTO"
+            "missing_info": "INFORMACION_INSUFICIENTE",
+            "error": "ERROR_PROCESAMIENTO"
         }
-        
-        status = outputs.get(output_type, "RESPUESTA_GENERAL")
-        
-        response_obj = RequirementResponse(
-            status=status,  # Provide status when creating the object
+
+        status_value = status_map.get(output_type, "RESPUESTA_GENERAL")
+
+        model_map = {
+            "requerimientos": RequirementResponse,
+            "epicas": EpicResponse,
+            "historias_usuario": UserStoryResponse,
+            "missing_info": RequirementResponse,
+            "error": RequirementResponse
+        }
+
+        model_class = model_map.get(output_type, RequirementResponse)
+
+        response_obj = model_class(
+            status=status_value,
             query=query,
             timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             content=raw_response,
-            missing_info=missing_info if missing_info and isinstance(missing_info, list) else None
+            missing_info=missing_info if isinstance(missing_info, list) else None
         )
-        
+
         return response_obj.format_response()
         
     def setup_structured_output(self):
@@ -171,21 +182,33 @@ class LLMResponseProcessor:
         complete_data = {
             "status": "RESPUESTA_GENERAL",  
             "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "content": structured_data.get("content", raw_answer),
-            "missing_info": structured_data.get("missing_info", None),
-            "metadata": structured_data.get("metadata", None)
+            "content": structured_data["content"] if "content" in structured_data else raw_answer,
+            "missing_info": structured_data["missing_info"] if "missing_info" in structured_data else None,
+            "metadata": structured_data["metadata"] if "metadata" in structured_data else None
         }
         
         # Determinar el status adecuado
-        complete_data["status"] = self._determine_response_status(structured_data, complete_data["content"])
-        
+        status = self._determine_response_status(structured_data, structured_data.get("content", ""))
+
+        output_type = self._infer_output_type_from_status(status)
+
         return self.standardize_output(
-        complete_data["content"], 
-        output_type=complete_data["status"].lower().replace("_", "_"), 
-        missing_info=complete_data["missing_info"],
-        query=query
+            structured_data.get("content", raw_answer),
+            output_type=output_type,
+            missing_info=structured_data.get("missing_info", None),
+            query=query
         )
     
+    def _infer_output_type_from_status(self, status: str) -> str:
+        mapping = {
+            "REQUERIMIENTOS_GENERADOS": "requerimientos",
+            "EPICAS_GENERADAS": "epicas",
+            "HISTORIAS_GENERADAS": "historias_usuario",
+            "INFORMACION_INSUFICIENTE": "missing_info",
+            "ERROR_PROCESAMIENTO": "error"
+        }
+        return mapping.get(status.upper(), "requerimientos")  # fallback seguro
+
     def _determine_response_status(self, structured_data, content):
         """
         Determina el estado de una respuesta basada en su contenido.

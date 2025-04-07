@@ -5,6 +5,14 @@ from typing import Literal, Optional, Dict, List,Union
 from datetime import datetime
 from pydantic import BaseModel, Field
 
+class RequirementItem(BaseModel):
+    id: str
+    title: str
+    description: str
+    category: Literal["Funcional", "No Funcional"]
+    priority: Literal["Alta", "Media", "Baja"]
+
+
 class RequirementResponse(BaseModel):
     """Modelo para respuestas estructuradas del asistente de proyectos."""
     
@@ -16,7 +24,7 @@ class RequirementResponse(BaseModel):
         default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         description="Momento en que se generó la respuesta"
     )
-    content: Union[List[Dict], str] = Field(
+    content: Union[List[RequirementItem], str] = Field(
         description="Contenido principal de la respuesta (requerimientos, explicación o mensaje de error)"
     )
     missing_info: Optional[List[str]] = Field(
@@ -28,38 +36,27 @@ class RequirementResponse(BaseModel):
         description="Metadatos adicionales sobre la respuesta"
     )
 
-    def _format_requirements(self, requirements: List[Dict]) -> List[Dict]:
-        """
-        Reformatea el id de cada requerimiento.
-        Se espera que cada diccionario tenga al menos una clave "id". Además, si el requerimiento
-        es no funcional se asume que el diccionario posee una clave "category" que contenga la palabra "no funcional" (o similar).
-        """
+    def _format_requirements(self, requirements: List[Union[RequirementItem, Dict]]) -> List[RequirementItem]:
         formatted = []
-        for req in requirements:
-            new_req = req.copy()
-            # Intentar extraer un número del id original
-            raw_id = new_req.get("id", None)
+        for i, req in enumerate(requirements, 1):
+            item = RequirementItem(**req) if isinstance(req, dict) else req
+
+            raw_id = item.id
             try:
-                # Si raw_id es numérico, se formatea directamente
                 num = int(raw_id)
             except (ValueError, TypeError):
-                # Si no es numérico, buscar dígitos en el string
-                import re
                 num_match = re.search(r'\d+', str(raw_id))
-                num = int(num_match.group()) if num_match else 0
+                num = int(num_match.group()) if num_match else i
 
-            # Determinar si es no funcional basándonos en la clave "category"
-            category = new_req.get("category", "").lower()
-            if "no funcional" in category or "nf" in category:
-                new_req["id"] = f"REQ-NF-{num:03d}"
-            else:
-                new_req["id"] = f"REQ-{num:03d}"
-            formatted.append(new_req)
+            category = item.category.lower()
+            item.id = f"REQ-NF-{num:03d}" if "no funcional" in category or "nf" in category else f"REQ-{num:03d}"
+            formatted.append(item)
+
         return formatted
 
+
     def format_response(self) -> str:
-        # Si content es una lista, aplicar el formateo a cada requerimiento
         if isinstance(self.content, list):
             self.content = self._format_requirements(self.content)
-        # Luego, devuelve el JSON formateado
-        return self.model_dump_json(indent=4)
+        return self.model_dump_json(indent=4, exclude_none=True)
+

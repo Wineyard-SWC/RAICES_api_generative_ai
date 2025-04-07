@@ -5,6 +5,16 @@ from typing import Literal, Optional, Dict, List,Union
 from datetime import datetime
 from pydantic import BaseModel, Field
 
+class RelatedRequirement(BaseModel):
+    id: str
+    description: str
+
+class EpicItem(BaseModel):
+    id: str
+    title: str
+    description: str
+    related_requirements: List[RelatedRequirement]
+
 class EpicResponse(BaseModel):
     """Modelo para respuestas estructuradas del asistente de proyectos."""
     
@@ -16,7 +26,7 @@ class EpicResponse(BaseModel):
         default_factory=lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         description="Momento en que se generó la respuesta"
     )
-    content: Union[List[Dict], str] = Field(
+    content: Union[List[EpicItem], str] = Field(
         description="Contenido principal de la respuesta (epicas, explicación o mensaje de error)"
     )
     missing_info: Optional[List[str]] = Field(
@@ -29,23 +39,23 @@ class EpicResponse(BaseModel):
     )
 
 
-    def _format_epics(self, epics: List[Dict]) -> List[Dict]:
-        """
-            Reformatea el ID de cada épica al formato EPIC-###.
-            Reformat each epic ID to 'EPIC-###'.
-        """
+    def _format_epics(self, epics: List[Union[EpicItem, Dict]]) -> List[EpicItem]:
         formatted = []
+
         for i, epic in enumerate(epics, 1):
-            new_epic = epic.copy()
+            item = EpicItem(**epic) if isinstance(epic, dict) else epic
 
-            # Forzar nuevo ID incremental EPIC-001, EPIC-002, etc.
-            new_epic["id"] = f"EPIC-{i:03d}"
+            item = item.model_copy(update={"id": f"EPIC-{i:03d}"})
 
-            # Asegurar que related_requirements sea una lista
-            if not isinstance(new_epic.get("related_requirements"), list):
-                new_epic["related_requirements"] = []
+            related = item.related_requirements or []
+            fixed_related = [
+                RelatedRequirement(**r) if isinstance(r, dict) else r
+                for r in related
+            ]
 
-            formatted.append(new_epic)
+            item = item.model_copy(update={"related_requirements": fixed_related})
+            formatted.append(item)
+
         return formatted
 
 

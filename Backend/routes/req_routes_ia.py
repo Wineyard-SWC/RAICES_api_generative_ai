@@ -27,6 +27,10 @@ Fprompt,NFprompt = RequirementsPrompt.getREQprompt()
 
 JSONOutputFormater = Formats()
 
+
+
+
+
 @router.post("/chat", response_model=ChatResponse)
 async def chat(message: ChatMessage):
 
@@ -63,20 +67,21 @@ async def chat(message: ChatMessage):
                                     ensure_ascii=False
                                     )
 
-        saved_to_kb = False
-        
-        if message.save_to_knowledge_base:
-            kb_content = f"Pregunta: {message.message}\n\nRespuesta: {response_text}"
-            chunks_added = RequirementsGenerativeAI.document_manager.add_content_to_knowledge_base(
-                content=kb_content,
-                source_name=f"chat_{session_id}_{uuid.uuid4()}.txt"
-            )
-            saved_to_kb = True
+        RequirementsGenerativeAI.conversation_manager.conversations[session_id]["history"].append(
+            {
+                "query":message.message,
+                "response":response_text,
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "raw_response": responsejson
+            }
+        )
+
+        RequirementsGenerativeAI.conversation_manager.auto_save_history(session_id)
+
         
         return ChatResponse(
             message=responsejson,
             session_id=session_id,
-            saved_to_kb=saved_to_kb
         )
     
     except Exception as e:
