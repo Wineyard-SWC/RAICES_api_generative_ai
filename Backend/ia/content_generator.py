@@ -162,6 +162,73 @@ class ContentGenerator:
 
         if type == "requerimientos":
             return (
+                f"{preprompt} Use the following information to deepen and enrich your response "
+                "or as a base to build your answer: \n\n{context}\n\n"
+                "Generate your response in the following structured JSON format. Always make sure to include the '{{status}}' field:\n\n"
+                f"{escaped_format_instructions}\n\n"
+                "IMPORTANT: The '{{status}}' field is MANDATORY and must be one of the following values:\n"
+                "- 'REQUERIMIENTOS_GENERADOS' if you can generate requirements based on the project description. Always use the fields id (REQ-### for functional and REQ-NF-### for non-functional), title, description, category (functional or non-functional depending on the type), and priority (High, Medium, Low)\n"
+                "- 'INFORMACION_INSUFICIENTE' if you believe more information is needed, and list it under the 'missing_info' field\n"
+                "- 'ERROR_PROCESAMIENTO' if an error occurs\n"
+                "- 'RESPUESTA_GENERAL' for any answer outside of those attributes\n\n"
+                "- If asked for anything that is not a software project, respond exactly with:\n"
+                "- 'As a virtual assistant, I cannot provide a response for that. I can only assist with software project support.'\n"
+                "Finally, always respond in the same language you are addressed in."
+            )
+
+        elif type == "epicas":
+            return (
+                f"{preprompt} Use the following information to deepen and enrich your response "
+                "or as a base to build your answer: \n\n{context}\n\n"
+                "Generate your response in the following structured JSON format. Always make sure to include the '{{status}}' field:\n\n"
+                f"{escaped_format_instructions}\n\n"
+                "IMPORTANT: The '{{status}}' field is MANDATORY and must be one of the following values:\n"
+                "- 'EPICAS_GENERADAS' if you can generate epics based on the available requirements. Always use the fields id (EPIC-###), title, description, and related_requirements, where you list the requirement IDs (REQ-### for functional and REQ-NF-### for non-functional) along with their descriptions in a list\n"
+                "- 'INFORMACION_INSUFICIENTE' if you believe more information is needed, and list it under the 'missing_info' field\n"
+                "- 'ERROR_PROCESAMIENTO' if an error occurs\n"
+                "- 'RESPUESTA_GENERAL' for any answer outside of those attributes\n\n"
+                "- If asked for anything that is not a software project, respond exactly with:\n"
+                "- 'As a virtual assistant, I cannot provide a response for that. I can only assist with software project support.'\n"
+                "Finally, always respond in the same language you are addressed in."
+            )
+
+        elif type == "historias_usuario":
+            return (
+                f"{preprompt} Use the following information to deepen and enrich your response "
+                "or as a base to build your answer: \n\n{context}\n\n"
+                "Generate your response in the following structured JSON format. Always make sure to include the '{{status}}' field:\n\n"
+                f"{escaped_format_instructions}\n\n"
+                "IMPORTANT: The '{{status}}' field is MANDATORY and must be one of the following values:\n"
+                "- 'HISTORIAS_GENERADAS' if you can generate user stories based on the available epics. Always use the fields id (US-###), title, description, priority (High, Medium, Low), and assigned_epic (EPIC-###) for the associated epic. Also include the acceptance_criteria field as a list of acceptance criteria for the user story\n"
+                "- 'INFORMACION_INSUFICIENTE' if you believe more information is needed, and list it under the 'missing_info' field\n"
+                "- 'ERROR_PROCESAMIENTO' if an error occurs\n"
+                "- 'RESPUESTA_GENERAL' for any answer outside of those attributes\n\n"
+                "- If asked for anything that is not a software project, respond exactly with:\n"
+                "- 'As a virtual assistant, I cannot provide a response for that. I can only assist with software project support.'\n"
+                "Finally, always respond in the same language you are addressed in."
+            )
+
+        else:
+            return (
+                f"{preprompt} Use the following information to deepen and enrich your response "
+                "or as a base to build your answer: \n\n{context}\n\n"
+                "Generate your response in the following structured JSON format. Always make sure to include the '{{status}}' field:\n\n"
+                f"{escaped_format_instructions}\n\n"
+                "IMPORTANT: The '{{status}}' field is MANDATORY and must be one of the following values:\n"
+                "- 'REQUERIMIENTOS_GENERADOS' if you can generate requirements based on the project description. Always use the fields id (REQ-### for functional and REQ-NF-### for non-functional), title, description, category (functional or non-functional depending on the type), and priority (High, Medium, Low)\n"
+                "- 'INSUFFICIENT_INFORMATION' if you believe more information is needed, and list it under the 'missing_info' field\n"
+                "- 'ERROR_PROCESAMIENTO' if an error occurs\n"
+                "- 'RESPUESTA_GENERAL' for any answer outside of those attributes\n\n"
+                "- If asked for anything that is not a software project, respond exactly with:\n"
+                "- 'As a virtual assistant, I cannot provide a response for that. I can only assist with software project support.'\n"
+                "Finally, always respond in the same language you are addressed in."
+            )
+
+
+
+        '''
+        if type == "requerimientos":
+            return (
                 f"{preprompt} Utiliza la información siguiente para profundizar y enriquecer tu respuesta "
                 "o como una base para construir lo que se te pide: \n\n{context}\n\n" 
                 "Genera tu respuesta en el siguiente formato estructurado JSON. Asegúrate de incluir SIEMPRE el campo '{{status}}':\n\n" 
@@ -223,6 +290,7 @@ class ContentGenerator:
                 "- 'Como asistente virtual no puedo proporcionarte la respuesta para eso, solo puedo asistirte con asistencia de proyectos de software'\n"
                 "Finalmente, responde siempre en el lenguaje que te hablen."
             )
+            '''
         
 
     async def _execute_rag_chain(self, query, retriever, qa_prompt):

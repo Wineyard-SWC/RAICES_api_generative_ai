@@ -29,6 +29,8 @@ Generar epicas
 @router.post("/generate-epics")
 async def generate_epics(body: EpicRequestBody):
     try:
+
+        print(body.session_id)
         requirements_data = body.requirements_description
 
         all_requirements = requirements_data["funcionales"] + requirements_data["no_funcionales"]
