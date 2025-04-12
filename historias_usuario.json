@@ -1,0 +1,15 @@
+{
+  "content": [
+    {
+      "id": "US-001",
+      "title": "Crear un nuevo producto",
+      "description": "Como administrador, quiero crear un producto para agregarlo al cat\u00e1logo.",
+      "priority": "Alta",
+      "assigned_epic": "EPIC-001",
+      "acceptance_criteria": [
+        "Permite ingresar nombre, descripci\u00f3n, precio.",
+        "Guarda correctamente la informaci\u00f3n del producto."
+      ]
+    }
+  ]
+}

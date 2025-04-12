@@ -1,0 +1,18 @@
+{
+  "epic_description": {
+    "content": [
+      {
+        "id": "EPIC-001",
+        "title": "Gesti\u00f3n Integral de Productos",
+        "description": "Permitir CRUD de productos incluyendo nombre, precio, categor\u00eda.",
+        "related_requirements": [
+          {
+            "id": "REQ-001",
+            "description": "El sistema debe permitir el registro de productos con informaci\u00f3n detallada."
+          }
+        ]
+      }
+    ]
+  },
+  "session_id": ""
+}

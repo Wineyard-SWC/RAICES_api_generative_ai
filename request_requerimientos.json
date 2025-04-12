@@ -1,0 +1,24 @@
+[
+  {
+    "funcionales": [
+      {
+        "id": "REQ-001",
+        "title": "Registro de Productos",
+        "description": "El sistema debe permitir el registro de productos con informaci\u00f3n detallada.",
+        "category": "Funcional",
+        "priority": "Alta"
+      }
+    ]
+  },
+  {
+    "no_funcionales": [
+      {
+        "id": "REQ-NF-001",
+        "title": "Interfaz Intuitiva",
+        "description": "La interfaz debe ser f\u00e1cil de usar para todos los roles.",
+        "category": "No Funcional",
+        "priority": "Alta"
+      }
+    ]
+  }
+]
