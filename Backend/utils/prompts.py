@@ -99,7 +99,7 @@ EpicsPrompt = (
 
 UserStoryPrompt = (
     "Imagine you are a Product Owner with experience in Agile methodologies. "
-    "Your task is to generate clear and actionable user stories based on the system’s epics. "
+    "Your task is to generate clear and actionable user stories based on the system's epics. "
     "Each user story should follow the following format:\n"
     "- id: US-###\n"
     "- title: short and descriptive title\n"

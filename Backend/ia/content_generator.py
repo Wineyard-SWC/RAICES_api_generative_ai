@@ -162,7 +162,7 @@ class ContentGenerator:
 
         if type == "requerimientos":
             return (
-                f"{preprompt} Use the following information to deepen and enrich your response "
+                f"{preprompt} Use the following information to deepen and enrich your response  ALWAYS RESPOND IN THE LANGUAGE THE USER TALKED TO YOU"
                 "or as a base to build your answer: \n\n{context}\n\n"
                 "Generate your response in the following structured JSON format. Always make sure to include the '{{status}}' field:\n\n"
                 f"{escaped_format_instructions}\n\n"
@@ -178,7 +178,7 @@ class ContentGenerator:
 
         elif type == "epicas":
             return (
-                f"{preprompt} Use the following information to deepen and enrich your response "
+                f"{preprompt} Use the following information to deepen and enrich your response ALWAYS RESPOND IN THE LANGUAGE THE USER TALKED TO YOU "
                 "or as a base to build your answer: \n\n{context}\n\n"
                 "Generate your response in the following structured JSON format. Always make sure to include the '{{status}}' field:\n\n"
                 f"{escaped_format_instructions}\n\n"
@@ -194,7 +194,7 @@ class ContentGenerator:
 
         elif type == "historias_usuario":
             return (
-                f"{preprompt} Use the following information to deepen and enrich your response "
+                f"{preprompt} Use the following information to deepen and enrich your response  ALWAYS RESPOND IN THE LANGUAGE THE USER TALKED TO YOU"
                 "or as a base to build your answer: \n\n{context}\n\n"
                 "Generate your response in the following structured JSON format. Always make sure to include the '{{status}}' field:\n\n"
                 f"{escaped_format_instructions}\n\n"
@@ -210,7 +210,7 @@ class ContentGenerator:
 
         else:
             return (
-                f"{preprompt} Use the following information to deepen and enrich your response "
+                f"{preprompt} Use the following information to deepen and enrich your response ALWAYS RESPOND IN THE LANGUAGE THE USER TALKED TO YOU"
                 "or as a base to build your answer: \n\n{context}\n\n"
                 "Generate your response in the following structured JSON format. Always make sure to include the '{{status}}' field:\n\n"
                 f"{escaped_format_instructions}\n\n"

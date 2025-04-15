@@ -9,14 +9,17 @@ from fastapi import APIRouter, HTTPException
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 # Local application imports
-from ia import Assistant
-from utils import Prompts, Formats
+from ia import Assistant,shared_llm,shared_conversation_manager
+from utils import Prompts, Formats, translate_selected_fields
 from models import EpicRequestBody 
+
 
 router = APIRouter()
 
 EpicsGenerativeAI = Assistant(
-    subdirectory='epics_pdfs'
+    subdirectory='epics_pdfs',
+    conversation_manager=shared_conversation_manager,
+    llm=shared_llm
 )
 
 EpicsPrompt = Prompts()
@@ -65,8 +68,15 @@ async def generate_epics(body: EpicRequestBody):
             "metadata": None
         }
 
+        lang = body.lang
+        if lang:
+            final_response = translate_selected_fields(final_response, target_lang=lang)
+
         final_response_text = json.dumps(final_response, indent=4, ensure_ascii=False)
         
+        EpicsGenerativeAI.conversation_manager.load_conversation_histories()
+            
+
         EpicsGenerativeAI.conversation_manager.conversations[body.session_id]["history"].append(
             {
                 "query": str(requirement_chunks),
