@@ -2,8 +2,8 @@ fastapi[all]
 uvicorn[standard]
 pydantic
 google-genai
-
-
+deep-translator
+langdetect
 langchain
 langchain_community
 langchain-google-genai

@@ -6,10 +6,12 @@ from datetime import datetime
 class RequestBody(BaseModel):
     message: str
     session_id: Optional[str] = None
+    
 
 class ChatMessage(BaseModel):
     message:str
     session_id: Optional[str] = None
+    lang: str = None
 
 class ChatResponse(BaseModel):
     message: Dict
@@ -23,7 +25,9 @@ class AddContentRequest(BaseModel):
 class EpicRequestBody(BaseModel):
     requirements_description: Dict
     session_id: str
+    lang: str = None
 
 class StoryRequestBody(BaseModel):
     epic_description: Dict
     session_id: str
+    lang: str = None

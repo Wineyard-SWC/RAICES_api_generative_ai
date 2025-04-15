@@ -12,23 +12,23 @@ from pydantic import BaseModel
 
 
 # Local application imports
-from ia import Assistant
+from ia import Assistant,shared_llm,shared_conversation_manager
 from models import RequestBody, ChatResponse, AddContentRequest, ChatMessage
-from utils import Prompts, Formats
+from utils import Prompts, Formats,translate_selected_fields
+
 router = APIRouter()
 
 # Instancia de la IA con los documentos de requerimientos
 RequirementsGenerativeAI = Assistant(
     subdirectory = 'requirements_pdfs',
+    conversation_manager=shared_conversation_manager,
+    llm=shared_llm
 )
 
 RequirementsPrompt = Prompts()
 Fprompt,NFprompt = RequirementsPrompt.getREQprompt()
 
 JSONOutputFormater = Formats()
-
-
-
 
 
 @router.post("/chat", response_model=ChatResponse)
@@ -61,11 +61,16 @@ async def chat(message: ChatMessage):
         responsejson = JSONOutputFormater.merge_responses(f_response=functional_response,
                                                           nf_response=non_functional_response
                                                             )
-                                
-        response_text = json.dumps(responsejson["content"],
+
+        lang = message.lang
+        if lang:
+            final_response = translate_selected_fields(responsejson, target_lang=lang)
+
+        response_text = json.dumps(final_response["content"],
                                     indent=4,
                                     ensure_ascii=False
                                     )
+        RequirementsGenerativeAI.conversation_manager.load_conversation_histories()
 
         RequirementsGenerativeAI.conversation_manager.conversations[session_id]["history"].append(
             {

@@ -4,12 +4,17 @@ from pydantic import BaseModel
 from datetime import datetime
 from typing import Dict, List
 import json
-from ia import Assistant
-from utils import Prompts, Formats
+from ia import Assistant, shared_conversation_manager,shared_llm
+from utils import Prompts, Formats, translate_selected_fields
 from models import StoryRequestBody
 
+
 # Instancia del asistente para historias de usuario
-UserStoriesAI = Assistant(subdirectory='stories_pdfs')
+UserStoriesAI = Assistant(
+    subdirectory='stories_pdfs',
+    conversation_manager=shared_conversation_manager,
+    llm=shared_llm
+    )
 
 UserStoryPrompt = Prompts()
 USprompt = UserStoryPrompt.getUSprompt()
@@ -53,8 +58,14 @@ async def generate_user_stories(body: StoryRequestBody):
             "missing_info": None,
             "metadata": None
         }
+        
+        lang = body.lang
+        if lang:
+            final_response = translate_selected_fields(final_response, target_lang=lang)
 
         final_response_text = json.dumps(final_response, indent=4, ensure_ascii=False)
+        
+        UserStoriesAI.conversation_manager.load_conversation_histories()
         
         UserStoriesAI.conversation_manager.conversations[body.session_id]["history"].append(
             {

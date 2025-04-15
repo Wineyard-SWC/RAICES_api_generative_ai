@@ -41,6 +41,7 @@ from .thinking_steps import ThinkingSteps
 
 
 # Claves de entorno para configuración del LLM y embeddings
+dotenv.load_dotenv()
 Key = os.environ.get("GEMINI_API_KEY")
 Embedding = os.environ.get("EMBEDDING")
 
@@ -77,10 +78,12 @@ class Assistant:
     def __init__(
             self, 
             subdirectory:str,
-            embedding_model:str = "models/embedding-001",##Embedding, 
+            embedding_model:str = "models/embedding-001", 
             persist_directory:str = os.path.join(os.path.dirname(__file__), "/chroma_db"),
             filter_directories:str = None,
-            thinking_callback:str = None
+            thinking_callback:str = None,
+            llm = None,
+            conversation_manager=None
         ):
 
         """
@@ -95,17 +98,14 @@ class Assistant:
             filter_directories (str): Filtros opcionales por subdirectorios / Optional subdirectory filters
             thinking_callback (str): Función para simular pasos mentales / Optional callback for thought simulation
         """
-
-        # Inicializa el modelo LLM (Gemini)
-        # Initialize the LLM (Gemini)
-        self.llm = ChatGoogleGenerativeAI(
+        self.llm = llm if llm else ChatGoogleGenerativeAI(
             api_key=Key,
             model="gemini-2.0-flash",
             temperature=0.2,
             max_tokens=None,
             timeout=None,
         )
-        
+
         # Procesador de respuestas del LLM
         # LLM response post-processor
         self.llm_response_manager = LLMResponseProcessor(
@@ -121,6 +121,15 @@ class Assistant:
             embedding= embedding_model,
             filter_directories=filter_directories
         )
+
+        if conversation_manager:
+            self.conversation_manager = conversation_manager
+        else:
+            self.conversation_manager = ConversationManager(
+                document_manager=self.document_manager,
+                llm=self.llm
+            )
+
 
         # Controlador del historial de conversación
         # Conversation history handler
@@ -160,7 +169,6 @@ class Assistant:
         Returns:
             str: Respuesta generada en formato estándar / Generated response in standardized format
         """
-
         # Asegura que exista o se cree una sesión
         # Ensure session exists or create a new one
         session_id = self.content_generator._manage_session(session_id, newchat)
