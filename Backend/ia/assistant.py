@@ -79,7 +79,7 @@ class Assistant:
             self, 
             subdirectory:str,
             embedding_model:str = "models/embedding-001", 
-            persist_directory:str = os.path.join(os.path.dirname(__file__), "/chroma_db"),
+            persist_directory:str = os.path.join(os.path.dirname(__file__), "/Backend/chroma_db"),
             filter_directories:str = None,
             thinking_callback:str = None,
             llm = None,
