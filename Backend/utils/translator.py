@@ -15,7 +15,7 @@ def translate_text(text: str, target_lang: str) -> str:
         return GoogleTranslator(source='auto', target=target_lang).translate(text)
     return text
 
-def translate_selected_fields(data, target_lang="es"):
+def translate_selected_fields(data, target_lang="en"):
     if isinstance(data, dict):
         translated_data = {}
         for key, value in data.items():
